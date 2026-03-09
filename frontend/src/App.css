@@ -1,86 +1,42 @@
-.app-container {
-  max-width: 480px;
-  width: 100%;
-  min-height: 100vh;
+#root {
+  max-width: 1280px;
   margin: 0 auto;
-  background-color: var(--bg-color, #ffffff);
-  color: var(--text-color, #213547);
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
+  padding: 2rem;
+  text-align: center;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #ff6b6b;
-  color: white;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.navbar a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.page-content {
-  padding: 1rem;
-  flex-grow: 1;
-}
-
-.search-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin-bottom: 2rem;
-}
-
-.search-bar, .filter-dropdown, .form-input {
-  padding: 0.8rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.recipe-card {
-  border: 1px solid #eaeaea;
-  border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background: #fafafa;
-}
-
-.primary-btn {
-  background-color: #ff6b6b;
-  color: white;
-  width: 100%;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 0.5rem;
-}
-
-.safety-tip {
-  background-color: #fff3cd;
-  color: #856404;
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  border-left: 4px solid #ffeeba;
-}
-
-@media (prefers-color-scheme: dark) {
-  .app-container {
-    --bg-color: #242424;
-    --text-color: rgba(255, 255, 255, 0.87);
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
   }
-  .recipe-card { background: #2a2a2a; border-color: #333; }
-  .search-bar, .filter-dropdown, .form-input { background-color: #333; color: white; border-color: #444; }
-  .safety-tip { background-color: #4d4013; color: #ffdf70; border-color: #b39b34;}
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }
