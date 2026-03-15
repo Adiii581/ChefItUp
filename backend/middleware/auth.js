@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// middleware to protect routes
 export const protect = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -23,7 +22,6 @@ export const protect = (req, res, next) => {
   }
 };
 
-// token generation for users to access protected routes, and they can use this token for 7 days by default, but you can change the expiration time by passing a different value to the expiresIn parameter
 export const generateToken = (payload, expiresIn = "7d") => {
   return jwt.sign(payload, JWT_SECRET, { expiresIn });
 };
