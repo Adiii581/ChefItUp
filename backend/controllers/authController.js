@@ -1,10 +1,14 @@
-import User from "../models/users.model";
+import User from "../models/users.model.js";
 import bcrypt from "bcrypt";
-import { generateToken } from "../middleware/auth";
+import { generateToken } from "../middleware/auth.js";
 
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "All fields required" });
+    }
 
     const existingUser = await User.findOne({ email });
 
