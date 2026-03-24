@@ -121,7 +121,7 @@
   border: 1px solid #ddd;
   font-size: 0.95rem;
   background: #fafafa;
-  color: inherit;
+  color: #222;
   transition:
     border-color 0.15s,
     box-shadow 0.15s;
@@ -387,6 +387,13 @@
   .form-input {
     background: #2a2a2a;
     border-color: #3a3a3a;
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .search-bar:focus,
+  .filter-dropdown:focus,
+  .form-input:focus {
+    background: #2a2a2a;
     color: rgba(255, 255, 255, 0.87);
   }
 
