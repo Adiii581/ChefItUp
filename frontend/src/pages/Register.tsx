@@ -2,22 +2,23 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../service/api";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     try {
-      const data = await api.login(email, password);
+      const data = await api.register(username, email, password);
       if (data.token) {
         localStorage.setItem("token", data.token);
         navigate("/");
       } else {
-        setError(data.message || "Login failed");
+        setError(data.message || "Registration failed");
       }
     } catch {
       setError("Network error");
@@ -37,6 +38,13 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          type="text"
+          placeholder="Username"
+          className="form-input"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
           type="password"
           placeholder="Password"
           className="form-input"
@@ -45,7 +53,7 @@ export default function Login() {
         />
         {error && <p style={{ color: "red" }}>{error}</p>}
         <button className="primary-btn" type="submit">
-          Log In
+          Register
         </button>
       </form>
     </div>

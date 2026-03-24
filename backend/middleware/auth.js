@@ -1,7 +1,5 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
 export const protect = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -14,7 +12,7 @@ export const protect = (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (err) {
@@ -23,5 +21,5 @@ export const protect = (req, res, next) => {
 };
 
 export const generateToken = (payload, expiresIn = "7d") => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn });
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn });
 };
