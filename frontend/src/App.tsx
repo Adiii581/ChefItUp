@@ -19,11 +19,13 @@ const Navbar = ({
       ChefItUp 👨‍🍳
     </Link>
     <div className="navbar-links">
-      <Link to="/profile">Profile</Link>
       {isLoggedIn ? (
-        <button onClick={onLogout} className="navbar-logout-btn">
-          Logout
-        </button>
+        <>
+          <Link to="/profile">Profile</Link>
+          <button onClick={onLogout} className="navbar-logout-btn">
+            Logout
+          </button>
+        </>
       ) : (
         <>
           <Link to="/login">Login</Link>
