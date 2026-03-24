@@ -2,6 +2,7 @@ import express from "express";
 import { config } from "dotenv";
 import connectMongo from "./db/mongo.js";
 import authRoutes from "./routes/authRoute.js";
+import recipeRoutes from "./routes/recipeRoutes.js"
 config();
 
 const app = express();
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/api", recipeRoutes)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${Number(port)}`);
