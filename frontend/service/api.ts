@@ -12,4 +12,11 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
     }).then((res) => res.json()),
+
+  getMe: () =>
+    fetch("/api/user/me", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => res.json()),
 };

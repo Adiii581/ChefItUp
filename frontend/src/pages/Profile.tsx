@@ -1,11 +1,26 @@
+import { useEffect, useState } from "react";
+import { api } from "../../service/api";
+
 export default function Profile() {
+  const [user, setUser] = useState<{ username: string; email: string } | null>(null);
+
+  useEffect(() => {
+    api.getMe().then((data) => {
+      if (data.username) setUser(data);
+    });
+  }, []);
+
+  const displayName = user?.username ?? "...";
+  const displayEmail = user?.email ?? "...";
+  const avatarLetter = user?.username?.[0]?.toUpperCase() ?? "?";
+
   return (
     <div>
       <div className="profile-header">
-        <div className="profile-avatar">D</div>
+        <div className="profile-avatar">{avatarLetter}</div>
         <div className="profile-info">
-          <h2>Dorm Student</h2>
-          <p>dorm.student@university.edu</p>
+          <h2>{displayName}</h2>
+          <p>{displayEmail}</p>
         </div>
       </div>
 
