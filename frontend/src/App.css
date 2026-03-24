@@ -1,10 +1,8 @@
 .app-container {
-  max-width: 480px; /* Keeps the mobile shape on desktop */
-  width: 100%;      /* Forces it to fill 100% of the mobile screen */
+  width: 100%;
   min-height: 100vh;
   background-color: var(--bg-color, #ffffff);
   color: var(--text-color, #213547);
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
 }

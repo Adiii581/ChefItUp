@@ -12,8 +12,7 @@ html, body, #root {
   background-color: #f0f0f0; /* Light grey background for desktop users */
 }
 
-/* This centers the app container when viewed on a wider desktop screen */
 #root {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 }
