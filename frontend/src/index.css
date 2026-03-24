@@ -1,15 +1,9 @@
-* {
-  box-sizing: border-box; /* Crucial: stops padding from expanding widths */
-  margin: 0;
-  padding: 0;
-}
-
 html, body, #root {
   width: 100%;
   min-height: 100vh;
-  overflow-x: hidden; /* Prevents any sideways scrolling */
+  overflow-x: hidden;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #f0f0f0; /* Light grey background for desktop users */
+  background-color: #f7f5f2;
 }
 
 #root {

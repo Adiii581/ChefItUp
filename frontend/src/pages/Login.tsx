@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../service/api";
 
 export default function Login() {
@@ -25,29 +25,32 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Welcome to ChefItUp</h2>
-      <p>Log in to access your saved recipes.</p>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Student Email"
-          className="form-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="form-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button className="primary-btn" type="submit">
-          Log In
-        </button>
-      </form>
+    <div className="auth-wrapper">
+      <div className="auth-card">
+        <h2>Welcome back</h2>
+        <p>Log in to access your saved recipes.</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Student Email"
+            className="form-input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="form-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {error && <p className="error-msg">{error}</p>}
+          <button className="primary-btn" type="submit">Log In</button>
+        </form>
+        <p className="auth-footer">
+          No account? <Link to="/register">Register</Link>
+        </p>
+      </div>
     </div>
   );
 }

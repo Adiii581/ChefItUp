@@ -1,19 +1,21 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function RecipeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
   return (
-    <div>
-      <button onClick={() => navigate(-1)} style={{ marginBottom: '1rem' }}>← Back</button>
-      <h2>Mock Recipe #{id} Details</h2>
-      
+    <div className="recipe-detail">
+      <button className="back-btn" onClick={() => navigate(-1)}>
+        ← Back
+      </button>
+
       <div className="safety-tip">
-        <strong>⚠️ Safety Tip:</strong> Never put aluminum foil in the microwave!
+        <strong>Safety Tip:</strong> Never put aluminum foil in the microwave!
       </div>
 
-      <div className="recipe-card">
+      <div className="detail-card">
+        <h2 style={{ marginBottom: "1rem" }}>Mock Recipe #{id}</h2>
         <h3>Ingredients</h3>
         <ul>
           <li>Mock Ingredient 1</li>

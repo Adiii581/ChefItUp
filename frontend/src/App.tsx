@@ -6,11 +6,10 @@ import Register from "./pages/Register";
 import RecipeDetail from "./pages/RecipeDetail";
 import "./App.css";
 
-// Navbar Component extracted for cleanliness
 const Navbar = () => (
   <nav className="navbar">
-    <Link to="/">ChefItUp 👨‍🍳</Link>
-    <div style={{ display: "flex", gap: "1rem" }}>
+    <Link to="/" className="navbar-brand">ChefItUp 👨‍🍳</Link>
+    <div className="navbar-links">
       <Link to="/profile">Profile</Link>
       <Link to="/login">Login</Link>
       <Link to="/register">Register</Link>
