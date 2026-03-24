@@ -1,6 +1,6 @@
 import { Router } from "express"
-import {createRecipe, getRecipes, getRecipeById, updateRecipe, deleteRecipe } from "../controllers/recipeController"
-import { protect } from "../middleware/auth"
+import { createRecipe, getRecipes, getRecipeById, updateRecipe, deleteRecipe } from "../controllers/recipeController.js"
+import { protect } from "../middleware/auth.js"
 
 const router = Router();
 

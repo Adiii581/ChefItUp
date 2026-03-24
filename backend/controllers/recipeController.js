@@ -1,4 +1,4 @@
-import Recipe from "../models/recipe.model";
+import Recipe from "../models/recipe.model.js";
 
 const getRecipes = (req, res) => {
   try {
@@ -72,4 +72,8 @@ const deleteRecipe = (req, res) => {
   }
 }
 
-export default { getRecipes, getRecipeById, createRecipe, updateRecipe, deleteRecipe };
+export { getRecipes };
+export { getRecipeById};
+export { createRecipe };
+export { updateRecipe };
+export { deleteRecipe };
