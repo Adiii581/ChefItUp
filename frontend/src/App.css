@@ -56,6 +56,23 @@
   color: #fff;
 }
 
+.navbar-logout-btn {
+  color: rgba(255, 255, 255, 0.85);
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.navbar-logout-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
 .page-content {
   flex-grow: 1;
   padding: 2rem;

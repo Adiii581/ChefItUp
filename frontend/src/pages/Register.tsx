@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../service/api";
 
-export default function Register() {
+export default function Register({ onAuthSuccess }: { onAuthSuccess?: () => void }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +16,7 @@ export default function Register() {
       const data = await api.register(username, email, password);
       if (data.token) {
         localStorage.setItem("token", data.token);
+        onAuthSuccess?.();
         navigate("/");
       } else {
         setError(data.message || "Registration failed");
