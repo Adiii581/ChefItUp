@@ -2,23 +2,24 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../service/api";
 
-export default function Login({ onAuthSuccess }: { onAuthSuccess?: () => void }) {
+export default function Register({ onAuthSuccess }: { onAuthSuccess?: () => void }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     try {
-      const data = await api.login(email, password);
+      const data = await api.register(username, email, password);
       if (data.token) {
         localStorage.setItem("token", data.token);
         onAuthSuccess?.();
         navigate("/");
       } else {
-        setError(data.message || "Login failed");
+        setError(data.message || "Registration failed");
       }
     } catch {
       setError("Network error");
@@ -28,9 +29,16 @@ export default function Login({ onAuthSuccess }: { onAuthSuccess?: () => void })
   return (
     <div className="auth-wrapper">
       <div className="auth-card">
-        <h2>Welcome back</h2>
-        <p>Log in to access your saved recipes.</p>
+        <h2>Create an account</h2>
+        <p>Join ChefItUp and start saving your favourite dorm recipes.</p>
         <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            className="form-input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <input
             type="email"
             placeholder="Student Email"
@@ -46,10 +54,10 @@ export default function Login({ onAuthSuccess }: { onAuthSuccess?: () => void })
             onChange={(e) => setPassword(e.target.value)}
           />
           {error && <p className="error-msg">{error}</p>}
-          <button className="primary-btn" type="submit">Log In</button>
+          <button className="primary-btn" type="submit">Register</button>
         </form>
         <p className="auth-footer">
-          No account? <Link to="/register">Register</Link>
+          Already have an account? <Link to="/login">Log in</Link>
         </p>
       </div>
     </div>
