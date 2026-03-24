@@ -1,8 +1,4 @@
 import mongoose from "mongoose";
-// --------------------------------------------------------
-// Consider adding tags: [strings] field for feature searching like microwavable 
-// or breakfast. 
-// --------------------------------------------------------
 
 const ingredientSchema = new mongoose.Schema(
   {
@@ -164,6 +160,14 @@ const recipeSchema = new mongoose.Schema(
     },
     extendedIngredients: {
       type: [ingredientSchema],
+      default: [],
+    },
+    equipment: {
+      type: [String],
+      default: [],
+    },
+    tags: {
+      type: [String],
       default: [],
     },
   },
