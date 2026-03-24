@@ -2,9 +2,10 @@ import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import connectMongo from "./db/mongo.js";
+config();
 import authRoutes from "./routes/authRoute.js";
 import userRoutes from "./routes/userRoute.js";
-config();
+import recipeRoutes from "./routes/recipeRoutes.js"
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,10 +18,11 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api", recipeRoutes);
 app.use("/api/user", userRoutes);
+
+await connectMongo();
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${Number(port)}`);
 });
-
-connectMongo();
