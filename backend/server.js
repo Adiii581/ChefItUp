@@ -18,10 +18,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/api", recipeRoutes)
+app.use("/api", recipeRoutes);
+app.use("/api/user", userRoutes);
 
 await connectMongo();
-app.use("/api/user", userRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${Number(port)}`);
