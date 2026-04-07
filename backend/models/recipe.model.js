@@ -84,13 +84,13 @@ const recipeSchema = new mongoose.Schema(
       required: false,
       trim: true,
     },
-    summary: {
+    description: {
       type: String,
       required: false,
       trim: true,
     },
     instructions: {
-      type: String,
+      type: [String],
       required: false,
       trim: true,
     },
@@ -158,7 +158,7 @@ const recipeSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
-    extendedIngredients: {
+    ingredients: {
       type: [ingredientSchema],
       default: [],
     },
