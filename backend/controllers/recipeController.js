@@ -125,10 +125,14 @@ const getRecipes = async (req, res) => {
 */
 const getRecipeById = async (req, res) => {
   try {
-    const { id } = req.params;
+    const recipeId = Number(req.params.id);
+
+    if (!Number.isInteger(recipeId)) {
+      return res.status(400).json({ message: "Invalid recipe id" });
+    }
     
     // search for recipe in the database based on the id
-    const recipe = await Recipe.findOne({ id: Number(id) });
+    const recipe = await Recipe.findOne({ id: recipeId });
 
     // recipe is not found
     if (!recipe) {
@@ -142,36 +146,102 @@ const getRecipeById = async (req, res) => {
   }
 }
 
-const createRecipe = (req, res) => {
+const createRecipe = async (req, res) => {
   try {
-    // can add or delete paramters
-    const { title, description, ingredients, instructions } = req.body;
-    // add logic to create new recipe in database
+    const { title, ingredients, instructions, ...optionalFields } = req.body;
 
-    res.status(201).json({ message: "Recipe create successfully" });
+    if (!title?.trim()) {
+      return res.status(400).json({ message: "Title is required" });
+    }
+
+    if (ingredients && !Array.isArray(ingredients)) {
+      return res.status(400).json({ message: "Ingredients must be an array" });
+    }
+
+    if (instructions && !Array.isArray(instructions)) {
+      return res.status(400).json({ message: "Instructions must be an array" });
+    }
+
+    const [lastRecipe] = await Recipe.find().sort({ id: -1 }).limit(1);
+    const nextRecipeId = lastRecipe ? lastRecipe.id + 1 : 1;
+
+    const recipe = await Recipe.create({
+      id: nextRecipeId,
+      title: title.trim(),
+      ingredients: ingredients ?? [],
+      instructions: instructions ?? [],
+      ...optionalFields
+    });
+
+    res.status(201).json(recipe);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-const updateRecipe = (req, res) => {
+const updateRecipe = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { title, description, ingredients, instructions } = req.body;
-    // add logic to update recipe in database
+    const recipeId = Number(req.params.id);
 
-    res.status(200).json({ message: "Recipe updated successfully" });
+    if (!Number.isInteger(recipeId)) {
+      return res.status(400).json({ message: "Invalid recipe id" });
+    }
+
+    const updates = { ...req.body };
+
+    if (updates.id !== undefined) {
+      delete updates.id;
+    }
+
+    if (updates.title !== undefined) {
+      if (!updates.title?.trim()) {
+        return res.status(400).json({ message: "Title cannot be empty" });
+      }
+      updates.title = updates.title.trim();
+    }
+
+    if (updates.ingredients !== undefined && !Array.isArray(updates.ingredients)) {
+      return res.status(400).json({ message: "Ingredients must be an array" });
+    }
+
+    if (updates.instructions !== undefined && !Array.isArray(updates.instructions)) {
+      return res.status(400).json({ message: "Instructions must be an array" });
+    }
+
+    const recipe = await Recipe.findOneAndUpdate(
+      { id: recipeId },
+      updates,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.status(200).json(recipe);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-const deleteRecipe = (req, res) => {
+const deleteRecipe = async (req, res) => {
   try {
-    const { id } = req.params;
-    // add logic to delete recipe from database
+    const recipeId = Number(req.params.id);
+
+    if (!Number.isInteger(recipeId)) {
+      return res.status(400).json({ message: "Invalid recipe id" });
+    }
+
+    const recipe = await Recipe.findOneAndDelete({ id: recipeId });
+
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
     
-    res.status(200).json({ message: "Recipe deleted sucessfully" });
+    res.status(200).json({ message: "Recipe deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
