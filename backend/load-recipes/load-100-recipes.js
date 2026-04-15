@@ -201,7 +201,7 @@ const buildManualReviewRecipe = (recipe) => {
   const equipment = buildEquipmentList(recipe);
 
   return {
-    id: recipe.id,
+    spoonacularId: recipe.id,
     title: recipe.title ?? "",
     description: stripHtml(recipe.summary ?? ""),
     ingredients: Array.isArray(recipe.extendedIngredients)
@@ -245,7 +245,7 @@ const normalizeRecipe = (recipe) => {
   const equipment = buildEquipmentList(recipe);
 
   return {
-    id: recipe.id,
+    spoonacularId: recipe.id,
     title: recipe.title,
     image: recipe.image,
     imageType: recipe.imageType,
@@ -253,8 +253,8 @@ const normalizeRecipe = (recipe) => {
     readyInMinutes: recipe.readyInMinutes,
     sourceUrl: recipe.sourceUrl,
     spoonacularSourceUrl: recipe.spoonacularSourceUrl,
-    summary: recipe.summary,
-    instructions: recipe.instructions,
+    description: stripHtml(recipe.summary ?? ""),
+    instructions: buildInstructionSteps(recipe),
     vegetarian: recipe.vegetarian,
     vegan: recipe.vegan,
     glutenFree: recipe.glutenFree,
@@ -271,7 +271,7 @@ const normalizeRecipe = (recipe) => {
     dishTypes: Array.isArray(recipe.dishTypes) ? recipe.dishTypes : [],
     diets: Array.isArray(recipe.diets) ? recipe.diets : [],
     occasions: Array.isArray(recipe.occasions) ? recipe.occasions : [],
-    extendedIngredients: Array.isArray(recipe.extendedIngredients)
+    ingredients: Array.isArray(recipe.extendedIngredients)
       ? recipe.extendedIngredients.map(normalizeIngredient)
       : [],
     equipment,
@@ -352,7 +352,7 @@ const loadRecipes = async () => {
   const selectedNormalizedRecipes = selectDiverseRecipes(normalizedRecipes, TARGET_RECIPE_COUNT);
   const selectedRecipesById = new Map(detailedRecipes.map((recipe) => [recipe.id, recipe]));
   const manualReviewRecipes = selectedNormalizedRecipes
-    .map((recipe) => selectedRecipesById.get(recipe.id))
+    .map((recipe) => selectedRecipesById.get(recipe.spoonacularId))
     .filter(Boolean)
     .map(buildManualReviewRecipe);
   const validatedRecipes = selectedNormalizedRecipes.map(validateNormalizedRecipe);
@@ -367,7 +367,9 @@ const loadRecipes = async () => {
   }
 
   await connectMongo();
-  await Recipe.deleteMany({ id: { $in: validatedRecipes.map((recipe) => recipe.id) } });
+  await Recipe.deleteMany({
+    spoonacularId: { $in: validatedRecipes.map((recipe) => recipe.spoonacularId).filter(Boolean) }
+  });
   await Recipe.insertMany(validatedRecipes, { ordered: true });
 
   console.log(`Inserted ${validatedRecipes.length} recipes into MongoDB.`);

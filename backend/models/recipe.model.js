@@ -46,10 +46,11 @@ const ingredientSchema = new mongoose.Schema(
 
 const recipeSchema = new mongoose.Schema(
   {
-    id: {
+    spoonacularId: {
       type: Number,
-      required: true,
+      required: false,
       unique: true,
+      sparse: true,
     },
     title: {
       type: String,

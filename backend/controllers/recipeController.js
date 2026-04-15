@@ -1,9 +1,14 @@
+import mongoose from "mongoose";
 import Recipe from "../models/recipe.model.js";
 
 /*
-  searches for recipes based on url query parameters and returns a list of matching recipes sorted by relevance to the search criteria:
+  How to use:
+  GET /api/recipes
+  Optional query params: title, ingredients=egg,milk, tags=quick_meal,microwave
+
+  Searches for recipes based on url query parameters and returns a list of matching recipes sorted by relevance to the search criteria:
   - title: search for recipes with a title that matches the query
-  - ingredients: search for recipes that contain one or more of the specified ingredients 
+  - ingredients: search for recipes that contain one or more of the specified ingredients
   - tags: search for recipes that contain any of the specified tags
 */
 const getRecipes = async (req, res) => {
@@ -119,20 +124,22 @@ const getRecipes = async (req, res) => {
   }
 };
 
-
 /*
-  searches for a single recipe based on id passed as a route parameter
+  How to use:
+  GET /api/recipes/:id
+
+  Returns one recipe by its MongoDB _id.
 */
 const getRecipeById = async (req, res) => {
   try {
-    const recipeId = Number(req.params.id);
+    const recipeId = req.params.id;
 
-    if (!Number.isInteger(recipeId)) {
+    if (!mongoose.Types.ObjectId.isValid(recipeId)) {
       return res.status(400).json({ message: "Invalid recipe id" });
     }
     
-    // search for recipe in the database based on the id
-    const recipe = await Recipe.findOne({ id: recipeId });
+    // search for recipe in the database based on the MongoDB _id
+    const recipe = await Recipe.findById(recipeId);
 
     // recipe is not found
     if (!recipe) {
@@ -146,6 +153,13 @@ const getRecipeById = async (req, res) => {
   }
 }
 
+/*
+  How to use:
+  POST /api/recipes
+  Body: { "title": "Recipe title", "ingredients": [], "instructions": [], ...optionalFields }
+
+  Creates a new recipe and lets MongoDB generate the unique _id.
+*/
 const createRecipe = async (req, res) => {
   try {
     const { title, ingredients, instructions, ...optionalFields } = req.body;
@@ -162,11 +176,7 @@ const createRecipe = async (req, res) => {
       return res.status(400).json({ message: "Instructions must be an array" });
     }
 
-    const [lastRecipe] = await Recipe.find().sort({ id: -1 }).limit(1);
-    const nextRecipeId = lastRecipe ? lastRecipe.id + 1 : 1;
-
     const recipe = await Recipe.create({
-      id: nextRecipeId,
       title: title.trim(),
       ingredients: ingredients ?? [],
       instructions: instructions ?? [],
@@ -179,18 +189,29 @@ const createRecipe = async (req, res) => {
   }
 }
 
+/*
+  How to use:
+  PUT /api/recipes/:id
+  Body: any recipe fields you want to update
+
+  Updates an existing recipe by MongoDB _id.
+*/
 const updateRecipe = async (req, res) => {
   try {
-    const recipeId = Number(req.params.id);
+    const recipeId = req.params.id;
 
-    if (!Number.isInteger(recipeId)) {
+    if (!mongoose.Types.ObjectId.isValid(recipeId)) {
       return res.status(400).json({ message: "Invalid recipe id" });
     }
 
     const updates = { ...req.body };
 
-    if (updates.id !== undefined) {
-      delete updates.id;
+    if (updates._id !== undefined) {
+      delete updates._id;
+    }
+
+    if (updates.spoonacularId !== undefined) {
+      delete updates.spoonacularId;
     }
 
     if (updates.title !== undefined) {
@@ -208,8 +229,8 @@ const updateRecipe = async (req, res) => {
       return res.status(400).json({ message: "Instructions must be an array" });
     }
 
-    const recipe = await Recipe.findOneAndUpdate(
-      { id: recipeId },
+    const recipe = await Recipe.findByIdAndUpdate(
+      recipeId,
       updates,
       {
         new: true,
@@ -227,15 +248,21 @@ const updateRecipe = async (req, res) => {
   }
 }
 
+/*
+  How to use:
+  DELETE /api/recipes/:id
+
+  Deletes an existing recipe by MongoDB _id.
+*/
 const deleteRecipe = async (req, res) => {
   try {
-    const recipeId = Number(req.params.id);
+    const recipeId = req.params.id;
 
-    if (!Number.isInteger(recipeId)) {
+    if (!mongoose.Types.ObjectId.isValid(recipeId)) {
       return res.status(400).json({ message: "Invalid recipe id" });
     }
 
-    const recipe = await Recipe.findOneAndDelete({ id: recipeId });
+    const recipe = await Recipe.findByIdAndDelete(recipeId);
 
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
