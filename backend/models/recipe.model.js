@@ -175,4 +175,27 @@ const recipeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// exposes MongoDB's _id as id so the frontend can use a familiar field name
+recipeSchema.virtual("id").get(function getId() {
+  return this._id.toString();
+});
+
+// removes Mongo-specific fields from API responses while keeping id available
+const transformRecipe = (_doc, ret) => {
+  ret.id = ret._id.toString();
+  delete ret._id;
+  delete ret.__v;
+  return ret;
+};
+
+recipeSchema.set("toJSON", {
+  virtuals: true,
+  transform: transformRecipe,
+});
+
+recipeSchema.set("toObject", {
+  virtuals: true,
+  transform: transformRecipe,
+});
+
 export default mongoose.model("Recipe", recipeSchema);

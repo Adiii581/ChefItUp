@@ -1,6 +1,22 @@
 import mongoose from "mongoose";
 import Recipe from "../models/recipe.model.js";
 
+// normalizes both mongoose documents and aggregate results to the same API shape
+const serializeRecipe = (recipe) => {
+  if (!recipe) {
+    return recipe;
+  }
+
+  if (typeof recipe.toJSON === "function") {
+    return recipe.toJSON();
+  }
+
+  const serializedRecipe = { ...recipe, id: recipe._id?.toString?.() ?? recipe._id };
+  delete serializedRecipe._id;
+  delete serializedRecipe.__v;
+  return serializedRecipe;
+};
+
 /*
   How to use:
   GET /api/recipes
@@ -118,7 +134,7 @@ const getRecipes = async (req, res) => {
 
     const recipes = await Recipe.aggregate(pipeline);
 
-    res.status(200).json(recipes);
+    res.status(200).json(recipes.map(serializeRecipe));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -147,7 +163,7 @@ const getRecipeById = async (req, res) => {
     }
     
     // return the recipe as a response
-    res.status(200).json(recipe);
+    res.status(200).json(serializeRecipe(recipe));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -183,7 +199,7 @@ const createRecipe = async (req, res) => {
       ...optionalFields
     });
 
-    res.status(201).json(recipe);
+    res.status(201).json(serializeRecipe(recipe));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -242,7 +258,7 @@ const updateRecipe = async (req, res) => {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
-    res.status(200).json(recipe);
+    res.status(200).json(serializeRecipe(recipe));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
