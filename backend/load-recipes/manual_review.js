@@ -1,38 +1,35 @@
 // 100 dorm-friendly recipes for manual database review
-// Structure based on the example recipe objects the user provided.
+// Frontend-first review structure used by the recipe API.
 
-module.exports = [
+export default [
   {
     "title": "Microwave Cheesy Egg Mug",
     "description": "A fast high-protein dorm breakfast made with a microwave and a mug.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "milk",
-        "original": "1 tablespoon milk",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "salt",
-        "original": "Pinch of salt",
         "amount": 1,
         "unit": "pinch"
       },
       {
         "name": "pepper",
-        "original": "Pinch of black pepper",
         "amount": 1,
         "unit": "pinch"
       }
@@ -57,34 +54,31 @@ module.exports = [
   {
     "title": "Peanut Butter Banana Overnight Oats",
     "description": "A no-cook breakfast that uses pantry staples and can be made the night before.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "rolled oats",
-        "original": "1/2 cup rolled oats",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "milk",
-        "original": "1/2 cup milk",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "banana",
-        "original": "1/2 banana, sliced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "peanut butter",
-        "original": "1 tablespoon peanut butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "honey",
-        "original": "1 teaspoon honey",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -108,28 +102,26 @@ module.exports = [
   {
     "title": "Microwave Pizza Bagel",
     "description": "A classic dorm snack with only a few ingredients and almost no prep.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bagel",
-        "original": "1 bagel, split",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "pizza sauce",
-        "original": "2 tablespoons pizza sauce",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "mozzarella cheese",
-        "original": "1/4 cup shredded mozzarella",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "pepperoni",
-        "original": "6 slices pepperoni",
         "amount": 6,
         "unit": "slices"
       }
@@ -152,34 +144,31 @@ module.exports = [
   {
     "title": "Stovetop Garlic Butter Ramen",
     "description": "Upgraded ramen with butter and garlic for a richer flavor using one pot.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "ramen noodles",
-        "original": "1 package ramen noodles",
         "amount": 1,
         "unit": "package"
       },
       {
         "name": "butter",
-        "original": "1 tablespoon butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "garlic powder",
-        "original": "1/2 teaspoon garlic powder",
         "amount": 0.5,
         "unit": "teaspoon"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "green onion",
-        "original": "1 tablespoon sliced green onion",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -202,22 +191,21 @@ module.exports = [
   {
     "title": "Microwave Broccoli Mac",
     "description": "Boxed mac and cheese gets a dorm-friendly boost from frozen broccoli.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "mac and cheese cup",
-        "original": "1 microwave mac and cheese cup",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "frozen broccoli",
-        "original": "1/2 cup frozen broccoli florets",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "water",
-        "original": "Water as needed for the cup",
         "amount": 1,
         "unit": "serving"
       }
@@ -241,28 +229,26 @@ module.exports = [
   {
     "title": "Turkey and Cheese Quesadilla",
     "description": "A fast stovetop quesadilla that uses deli turkey and shredded cheese.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "deli turkey",
-        "original": "3 slices deli turkey",
         "amount": 3,
         "unit": "slices"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/3 cup shredded cheddar cheese",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "2 tablespoons salsa",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -286,34 +272,31 @@ module.exports = [
   {
     "title": "Microwave Loaded Baked Potato",
     "description": "A filling microwave potato topped with cheese and sour cream.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "russet potato",
-        "original": "1 medium russet potato",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "sour cream",
-        "original": "2 tablespoons sour cream",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "butter",
-        "original": "1 teaspoon butter",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "salt",
-        "original": "Pinch of salt",
         "amount": 1,
         "unit": "pinch"
       }
@@ -337,34 +320,31 @@ module.exports = [
   {
     "title": "Tuna Mayo Rice Bowl",
     "description": "A super simple rice bowl made with microwave rice and canned tuna.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "tuna",
-        "original": "1 can tuna, drained",
         "amount": 1,
         "unit": "can"
       },
       {
         "name": "mayonnaise",
-        "original": "1 tablespoon mayonnaise",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "soy sauce",
-        "original": "1 teaspoon soy sauce",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "green onion",
-        "original": "1 tablespoon sliced green onion",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -389,28 +369,26 @@ module.exports = [
   {
     "title": "Oven Nacho Tray",
     "description": "A low-effort tray of nachos baked until hot and melty.",
+    "appliance": "Oven",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "tortilla chips",
-        "original": "2 cups tortilla chips",
         "amount": 2,
         "unit": "cups"
       },
       {
         "name": "black beans",
-        "original": "1/2 cup black beans, drained",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/2 cup shredded cheddar cheese",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "1/4 cup salsa",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -434,34 +412,31 @@ module.exports = [
   {
     "title": "Microwave Cinnamon Apple Oatmeal",
     "description": "Warm oatmeal with diced apple and cinnamon that cooks in minutes.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "quick oats",
-        "original": "1/2 cup quick oats",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "water",
-        "original": "3/4 cup water",
         "amount": 0.75,
         "unit": "cup"
       },
       {
         "name": "apple",
-        "original": "1/2 apple, diced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "cinnamon",
-        "original": "1/2 teaspoon cinnamon",
         "amount": 0.5,
         "unit": "teaspoon"
       },
       {
         "name": "brown sugar",
-        "original": "1 teaspoon brown sugar",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -485,28 +460,26 @@ module.exports = [
   {
     "title": "Egg and Cheese Breakfast Sandwich",
     "description": "A dorm-friendly sandwich using a microwave egg and toasted English muffin.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "english muffin",
-        "original": "1 English muffin",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "egg",
-        "original": "1 egg",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "cheddar cheese",
-        "original": "1 slice cheddar cheese",
         "amount": 1,
         "unit": "slice"
       },
       {
         "name": "butter",
-        "original": "1 teaspoon butter",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -531,28 +504,26 @@ module.exports = [
   {
     "title": "Microwave Bean and Cheese Burrito",
     "description": "A cheap dorm meal that uses canned beans and shredded cheese.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "refried beans",
-        "original": "1/3 cup refried beans",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "2 tablespoons salsa",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -576,34 +547,31 @@ module.exports = [
   {
     "title": "Stovetop Buttered Peas Pasta",
     "description": "One-pot pasta with peas and butter for an easy weeknight dinner.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "pasta",
-        "original": "1 cup dry pasta",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "frozen peas",
-        "original": "1/2 cup frozen peas",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "butter",
-        "original": "1 tablespoon butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "parmesan cheese",
-        "original": "2 tablespoons grated parmesan",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "salt",
-        "original": "Pinch of salt",
         "amount": 1,
         "unit": "pinch"
       }
@@ -627,34 +595,31 @@ module.exports = [
   {
     "title": "Microwave Scrambled Eggs and Spinach",
     "description": "An easy protein-packed bowl with eggs and a handful of spinach.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "spinach",
-        "original": "1 cup spinach",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "milk",
-        "original": "1 tablespoon milk",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "salt",
-        "original": "Pinch of salt",
         "amount": 1,
         "unit": "pinch"
       },
       {
         "name": "pepper",
-        "original": "Pinch of black pepper",
         "amount": 1,
         "unit": "pinch"
       }
@@ -679,28 +644,26 @@ module.exports = [
   {
     "title": "Greek Yogurt Berry Bowl",
     "description": "A no-cook breakfast or snack with just a few fridge staples.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "greek yogurt",
-        "original": "1 cup plain Greek yogurt",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "berries",
-        "original": "1/2 cup mixed berries",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "granola",
-        "original": "1/4 cup granola",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "honey",
-        "original": "1 teaspoon honey",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -724,34 +687,31 @@ module.exports = [
   {
     "title": "Microwave Corn and Black Bean Bowl",
     "description": "A fast meatless bowl with pantry ingredients and microwave rice.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "black beans",
-        "original": "1/2 cup black beans, drained",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "corn",
-        "original": "1/2 cup frozen or canned corn",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "2 tablespoons salsa",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -775,34 +735,31 @@ module.exports = [
   {
     "title": "Stove Fried Egg Ramen",
     "description": "Ramen topped with a fried egg for a cheap and filling meal.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "ramen noodles",
-        "original": "1 package ramen noodles",
         "amount": 1,
         "unit": "package"
       },
       {
         "name": "egg",
-        "original": "1 egg",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "butter",
-        "original": "1 teaspoon butter",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "soy sauce",
-        "original": "1 teaspoon soy sauce",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "green onion",
-        "original": "1 tablespoon sliced green onion",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -826,28 +783,26 @@ module.exports = [
   {
     "title": "Oven Garlic Bread Pizza",
     "description": "French bread or garlic bread turns into an easy dorm-style pizza.",
+    "appliance": "Oven",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "frozen garlic bread",
-        "original": "2 pieces frozen garlic bread",
         "amount": 2,
         "unit": "pieces"
       },
       {
         "name": "pizza sauce",
-        "original": "2 tablespoons pizza sauce",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "mozzarella cheese",
-        "original": "1/3 cup shredded mozzarella",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "pepperoni",
-        "original": "8 slices pepperoni",
         "amount": 8,
         "unit": "slices"
       }
@@ -870,34 +825,31 @@ module.exports = [
   {
     "title": "Microwave Mug French Toast",
     "description": "A sweet dorm breakfast made in one mug.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bread",
-        "original": "2 slices bread, torn into pieces",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "egg",
-        "original": "1 egg",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "milk",
-        "original": "3 tablespoons milk",
         "amount": 3,
         "unit": "tablespoons"
       },
       {
         "name": "cinnamon",
-        "original": "1/4 teaspoon cinnamon",
         "amount": 0.25,
         "unit": "teaspoon"
       },
       {
         "name": "maple syrup",
-        "original": "1 tablespoon maple syrup",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -922,34 +874,31 @@ module.exports = [
   {
     "title": "Hummus Veggie Wrap",
     "description": "A no-cook wrap that works well for lunch between classes.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "hummus",
-        "original": "3 tablespoons hummus",
         "amount": 3,
         "unit": "tablespoons"
       },
       {
         "name": "baby spinach",
-        "original": "1/2 cup baby spinach",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cucumber",
-        "original": "1/4 cucumber, sliced",
         "amount": 0.25,
         "unit": ""
       },
       {
         "name": "shredded carrots",
-        "original": "1/4 cup shredded carrots",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -973,28 +922,26 @@ module.exports = [
   {
     "title": "Microwave Salsa Chicken Rice",
     "description": "Rotisserie chicken and salsa turn microwave rice into a full meal quickly.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "1/4 cup salsa",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -1018,28 +965,26 @@ module.exports = [
   {
     "title": "Stovetop Tomato Parmesan Spaghetti",
     "description": "A pantry pasta made with jarred sauce and parmesan.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "spaghetti",
-        "original": "2 ounces spaghetti",
         "amount": 2,
         "unit": "ounces"
       },
       {
         "name": "marinara sauce",
-        "original": "1/2 cup marinara sauce",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "parmesan cheese",
-        "original": "2 tablespoons grated parmesan",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "olive oil",
-        "original": "1 teaspoon olive oil",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -1063,34 +1008,31 @@ module.exports = [
   {
     "title": "Microwave Chocolate Banana Oats",
     "description": "Chocolate chips and banana make this breakfast taste like dessert.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "quick oats",
-        "original": "1/2 cup quick oats",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "milk",
-        "original": "3/4 cup milk",
         "amount": 0.75,
         "unit": "cup"
       },
       {
         "name": "banana",
-        "original": "1/2 banana, sliced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "chocolate chips",
-        "original": "1 tablespoon chocolate chips",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "cocoa powder",
-        "original": "1 teaspoon cocoa powder",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -1114,28 +1056,26 @@ module.exports = [
   {
     "title": "Toaster Oven Tuna Melt",
     "description": "A simple tuna melt made with sandwich bread and a toaster oven.",
+    "appliance": "Toaster Oven",
+    "readyInMinutes": 12,
     "ingredients": [
       {
         "name": "bread",
-        "original": "2 slices bread",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "tuna",
-        "original": "1/2 can tuna, drained",
         "amount": 0.5,
         "unit": "can"
       },
       {
         "name": "mayonnaise",
-        "original": "1 tablespoon mayonnaise",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "cheddar cheese",
-        "original": "1 slice cheddar cheese",
         "amount": 1,
         "unit": "slice"
       }
@@ -1159,28 +1099,26 @@ module.exports = [
   {
     "title": "Microwave Sausage Egg Cup",
     "description": "Breakfast sausage crumbles and egg cook quickly in one cup.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "cooked sausage",
-        "original": "2 tablespoons cooked sausage crumbles",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "milk",
-        "original": "1 tablespoon milk",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -1205,28 +1143,26 @@ module.exports = [
   {
     "title": "Cottage Cheese Fruit Bowl",
     "description": "A cold high-protein snack with fruit and cinnamon.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cottage cheese",
-        "original": "1 cup cottage cheese",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "pineapple",
-        "original": "1/2 cup pineapple chunks",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cinnamon",
-        "original": "1/8 teaspoon cinnamon",
         "amount": 0.125,
         "unit": "teaspoon"
       },
       {
         "name": "honey",
-        "original": "1 teaspoon honey",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -1250,28 +1186,26 @@ module.exports = [
   {
     "title": "Microwave Teriyaki Veggie Noodles",
     "description": "Microwave noodles mixed with frozen vegetables and bottled teriyaki sauce.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "instant noodles",
-        "original": "1 package instant noodles",
         "amount": 1,
         "unit": "package"
       },
       {
         "name": "frozen mixed vegetables",
-        "original": "1/2 cup frozen mixed vegetables",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "teriyaki sauce",
-        "original": "1 tablespoon teriyaki sauce",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "sesame seeds",
-        "original": "1 teaspoon sesame seeds",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -1295,22 +1229,21 @@ module.exports = [
   {
     "title": "Stovetop Pesto Tortellini",
     "description": "Cheese tortellini and store-bought pesto make an easy dinner.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "cheese tortellini",
-        "original": "1 package refrigerated cheese tortellini",
         "amount": 1,
         "unit": "package"
       },
       {
         "name": "pesto",
-        "original": "2 tablespoons pesto",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "parmesan cheese",
-        "original": "2 tablespoons grated parmesan",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -1334,28 +1267,26 @@ module.exports = [
   {
     "title": "Microwave Ham and Cheese Roll-Ups",
     "description": "A fast snack or lunch using tortillas, deli ham, and cheese.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "deli ham",
-        "original": "3 slices deli ham",
         "amount": 3,
         "unit": "slices"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "mustard",
-        "original": "1 teaspoon mustard",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -1378,28 +1309,26 @@ module.exports = [
   {
     "title": "Microwave Sweet Potato and Black Beans",
     "description": "A sweet potato bowl with black beans and salsa for an easy meatless meal.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "sweet potato",
-        "original": "1 medium sweet potato",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "black beans",
-        "original": "1/2 cup black beans, drained",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "2 tablespoons salsa",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "greek yogurt",
-        "original": "2 tablespoons plain Greek yogurt",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -1424,28 +1353,26 @@ module.exports = [
   {
     "title": "Peanut Butter Apple Toast",
     "description": "A fast breakfast or snack with fruit and protein.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bread",
-        "original": "2 slices bread",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "peanut butter",
-        "original": "2 tablespoons peanut butter",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "apple",
-        "original": "1/2 apple, thinly sliced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "cinnamon",
-        "original": "1/8 teaspoon cinnamon",
         "amount": 0.125,
         "unit": "teaspoon"
       }
@@ -1469,28 +1396,26 @@ module.exports = [
   {
     "title": "Stovetop Chicken Alfredo Ramen",
     "description": "Ramen noodles tossed with jarred Alfredo and cooked chicken.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "ramen noodles",
-        "original": "1 package ramen noodles",
         "amount": 1,
         "unit": "package"
       },
       {
         "name": "alfredo sauce",
-        "original": "1/4 cup jarred Alfredo sauce",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "black pepper",
-        "original": "Pinch of black pepper",
         "amount": 1,
         "unit": "pinch"
       }
@@ -1514,34 +1439,31 @@ module.exports = [
   {
     "title": "Microwave Banana Nut Oatmeal",
     "description": "Microwave oats with banana and chopped nuts for extra texture.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "quick oats",
-        "original": "1/2 cup quick oats",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "water",
-        "original": "3/4 cup water",
         "amount": 0.75,
         "unit": "cup"
       },
       {
         "name": "banana",
-        "original": "1/2 banana, sliced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "walnuts",
-        "original": "1 tablespoon chopped walnuts",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "maple syrup",
-        "original": "1 teaspoon maple syrup",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -1565,28 +1487,26 @@ module.exports = [
   {
     "title": "Caprese Pasta Salad Cup",
     "description": "A simple cold pasta salad with mozzarella, tomatoes, and pesto.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cooked pasta",
-        "original": "1 cup cooked pasta",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "cherry tomatoes",
-        "original": "1/2 cup halved cherry tomatoes",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "mozzarella",
-        "original": "1/2 cup mozzarella pearls or cubes",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "pesto",
-        "original": "1 tablespoon pesto",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -1610,28 +1530,26 @@ module.exports = [
   {
     "title": "Microwave BBQ Chicken Potato",
     "description": "A microwave potato topped with chicken and barbecue sauce.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "russet potato",
-        "original": "1 medium russet potato",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "barbecue sauce",
-        "original": "2 tablespoons barbecue sauce",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -1655,28 +1573,26 @@ module.exports = [
   {
     "title": "Stovetop Lemon Butter Noodles",
     "description": "Three main ingredients make this one of the easiest pasta dinners.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "egg noodles",
-        "original": "2 ounces egg noodles",
         "amount": 2,
         "unit": "ounces"
       },
       {
         "name": "butter",
-        "original": "1 tablespoon butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "lemon juice",
-        "original": "1 teaspoon lemon juice",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -1700,34 +1616,31 @@ module.exports = [
   {
     "title": "Microwave Taco Rice Cup",
     "description": "Rice, salsa, beans, and cheese come together in one microwave-safe bowl.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "black beans",
-        "original": "1/2 cup black beans, drained",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "1/4 cup salsa",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "tortilla chips",
-        "original": "Small handful crushed tortilla chips",
         "amount": 1,
         "unit": "serving"
       }
@@ -1751,34 +1664,31 @@ module.exports = [
   {
     "title": "Turkey Pesto Sandwich",
     "description": "A low-effort sandwich with deli turkey and pesto.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bread",
-        "original": "2 slices bread",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "deli turkey",
-        "original": "4 slices deli turkey",
         "amount": 4,
         "unit": "slices"
       },
       {
         "name": "provolone cheese",
-        "original": "1 slice provolone cheese",
         "amount": 1,
         "unit": "slice"
       },
       {
         "name": "pesto",
-        "original": "1 tablespoon pesto",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "spinach",
-        "original": "1/4 cup spinach",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -1801,28 +1711,26 @@ module.exports = [
   {
     "title": "Oven Sheet Pan Sausage and Veggies",
     "description": "A simple tray bake with sausage and frozen vegetables.",
+    "appliance": "Oven",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "fully cooked sausage",
-        "original": "2 links fully cooked sausage, sliced",
         "amount": 2,
         "unit": "links"
       },
       {
         "name": "frozen mixed vegetables",
-        "original": "1 1/2 cups frozen mixed vegetables",
         "amount": 1.5,
         "unit": "cups"
       },
       {
         "name": "olive oil",
-        "original": "1 teaspoon olive oil",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "italian seasoning",
-        "original": "1/2 teaspoon Italian seasoning",
         "amount": 0.5,
         "unit": "teaspoon"
       }
@@ -1845,28 +1753,26 @@ module.exports = [
   {
     "title": "Microwave Ham Egg Breakfast Bowl",
     "description": "A quick breakfast bowl with ham, eggs, and cheese.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "deli ham",
-        "original": "2 slices deli ham, chopped",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "milk",
-        "original": "1 tablespoon milk",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -1891,34 +1797,31 @@ module.exports = [
   {
     "title": "Cold Peanut Noodle Bowl",
     "description": "A quick no-fuss noodle bowl using cooked noodles and peanut sauce.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cooked noodles",
-        "original": "1 cup cooked noodles",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "peanut butter",
-        "original": "1 tablespoon peanut butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "soy sauce",
-        "original": "1 teaspoon soy sauce",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "honey",
-        "original": "1 teaspoon honey",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "shredded carrots",
-        "original": "1/4 cup shredded carrots",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -1942,28 +1845,26 @@ module.exports = [
   {
     "title": "Microwave Pesto Eggs on Toast",
     "description": "Eggs and pesto cook quickly and go well over toast.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "pesto",
-        "original": "1 teaspoon pesto",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "bread",
-        "original": "2 slices bread",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -1988,28 +1889,26 @@ module.exports = [
   {
     "title": "Stovetop Cheesy Taco Pasta",
     "description": "Pasta, salsa, and cheese create an easy taco-inspired dinner.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "small pasta",
-        "original": "1 cup dry small pasta",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "1/2 cup salsa",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/2 cup shredded cheddar cheese",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "ground beef",
-        "original": "1/2 cup cooked ground beef",
         "amount": 0.5,
         "unit": "cup"
       }
@@ -2032,34 +1931,31 @@ module.exports = [
   {
     "title": "Microwave Veggie Fried Rice Shortcut",
     "description": "Microwave rice with egg, soy sauce, and peas makes a fast fake fried rice.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "egg",
-        "original": "1 egg",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "frozen peas",
-        "original": "1/4 cup frozen peas",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "soy sauce",
-        "original": "1 tablespoon soy sauce",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "sesame oil",
-        "original": "1 teaspoon sesame oil",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -2082,28 +1978,26 @@ module.exports = [
   {
     "title": "Bagel Cream Cheese and Turkey",
     "description": "A quick savory bagel sandwich for breakfast or lunch.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bagel",
-        "original": "1 bagel, split",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "cream cheese",
-        "original": "2 tablespoons cream cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "deli turkey",
-        "original": "3 slices deli turkey",
         "amount": 3,
         "unit": "slices"
       },
       {
         "name": "spinach",
-        "original": "1/4 cup spinach",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -2125,22 +2019,21 @@ module.exports = [
   {
     "title": "Microwave Marinara Ravioli Bowl",
     "description": "Refrigerated ravioli and jarred sauce make a fast microwave dinner.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "refrigerated ravioli",
-        "original": "1 cup refrigerated ravioli",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "marinara sauce",
-        "original": "1/2 cup marinara sauce",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "mozzarella cheese",
-        "original": "2 tablespoons shredded mozzarella",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -2164,34 +2057,31 @@ module.exports = [
   {
     "title": "Microwave Cinnamon Raisin Mug Cake",
     "description": "A breakfast-style mug cake with pantry ingredients.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour",
-        "original": "4 tablespoons flour",
         "amount": 4,
         "unit": "tablespoons"
       },
       {
         "name": "milk",
-        "original": "3 tablespoons milk",
         "amount": 3,
         "unit": "tablespoons"
       },
       {
         "name": "brown sugar",
-        "original": "1 tablespoon brown sugar",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "cinnamon",
-        "original": "1/4 teaspoon cinnamon",
         "amount": 0.25,
         "unit": "teaspoon"
       },
       {
         "name": "raisins",
-        "original": "1 tablespoon raisins",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -2216,28 +2106,26 @@ module.exports = [
   {
     "title": "Stovetop Sausage Peppers Pasta",
     "description": "Simple pasta with sausage, peppers, and jarred sauce.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "pasta",
-        "original": "1 cup dry pasta",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "fully cooked sausage",
-        "original": "1 sausage link, sliced",
         "amount": 1,
         "unit": "link"
       },
       {
         "name": "bell pepper",
-        "original": "1/2 bell pepper, sliced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "marinara sauce",
-        "original": "1/2 cup marinara sauce",
         "amount": 0.5,
         "unit": "cup"
       }
@@ -2261,28 +2149,26 @@ module.exports = [
   {
     "title": "Microwave Chicken Quesadilla",
     "description": "A quick microwave quesadilla for when you need something filling fast.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/3 cup shredded cheddar cheese",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "2 tablespoons salsa",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -2306,34 +2192,31 @@ module.exports = [
   {
     "title": "Avocado Bean Toast",
     "description": "Toast topped with mashed avocado and black beans for a cheap filling lunch.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bread",
-        "original": "2 slices bread",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "avocado",
-        "original": "1/2 avocado",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "black beans",
-        "original": "1/4 cup black beans, drained",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "lime juice",
-        "original": "1 teaspoon lime juice",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "salt",
-        "original": "Pinch of salt",
         "amount": 1,
         "unit": "pinch"
       }
@@ -2357,28 +2240,26 @@ module.exports = [
   {
     "title": "Microwave Alfredo Broccoli Rice",
     "description": "Microwave rice mixed with Alfredo sauce and broccoli.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "frozen broccoli",
-        "original": "1/2 cup frozen broccoli",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "alfredo sauce",
-        "original": "1/4 cup jarred Alfredo sauce",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -2402,28 +2283,26 @@ module.exports = [
   {
     "title": "Stovetop Chili Cheese Hot Dog Pasta",
     "description": "A fun cheap dinner using hot dogs, pasta, and canned chili.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "macaroni",
-        "original": "1 cup dry macaroni",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "hot dog",
-        "original": "1 hot dog, sliced",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "canned chili",
-        "original": "1/2 cup canned chili",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -2446,28 +2325,26 @@ module.exports = [
   {
     "title": "Microwave Berry Cream Cheese Toast",
     "description": "A sweet dorm breakfast with berries and cream cheese.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bread",
-        "original": "2 slices bread",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "cream cheese",
-        "original": "2 tablespoons cream cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "berries",
-        "original": "1/3 cup berries",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "honey",
-        "original": "1 teaspoon honey",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -2491,34 +2368,31 @@ module.exports = [
   {
     "title": "Microwave Ranch Chicken Wrap",
     "description": "Chicken, ranch, and lettuce make an easy dorm wrap.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "ranch dressing",
-        "original": "1 tablespoon ranch dressing",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "lettuce",
-        "original": "1/2 cup shredded lettuce",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -2541,28 +2415,26 @@ module.exports = [
   {
     "title": "Stovetop Spinach Parmesan Orzo",
     "description": "A small-pot pasta dish with spinach and parmesan.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "orzo",
-        "original": "1/2 cup dry orzo",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "spinach",
-        "original": "1 cup spinach",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "parmesan cheese",
-        "original": "2 tablespoons grated parmesan",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "butter",
-        "original": "1 tablespoon butter",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -2586,28 +2458,26 @@ module.exports = [
   {
     "title": "Microwave PB and Jelly Oatmeal",
     "description": "Peanut butter and jelly turn plain oats into a fun breakfast.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "quick oats",
-        "original": "1/2 cup quick oats",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "water",
-        "original": "3/4 cup water",
         "amount": 0.75,
         "unit": "cup"
       },
       {
         "name": "peanut butter",
-        "original": "1 tablespoon peanut butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "jam",
-        "original": "1 tablespoon jam",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -2631,34 +2501,31 @@ module.exports = [
   {
     "title": "Cold Chicken Caesar Wrap",
     "description": "A simple no-cook wrap using store-bought Caesar dressing.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup chopped cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "romaine lettuce",
-        "original": "1 cup chopped romaine lettuce",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "caesar dressing",
-        "original": "1 tablespoon Caesar dressing",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -2682,28 +2549,26 @@ module.exports = [
   {
     "title": "Microwave Mozzarella Tomato Melt",
     "description": "Bread topped with tomato sauce and mozzarella for a quick melt.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bread",
-        "original": "2 slices bread",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "marinara sauce",
-        "original": "2 tablespoons marinara sauce",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "mozzarella cheese",
-        "original": "1/4 cup shredded mozzarella",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "italian seasoning",
-        "original": "1/4 teaspoon Italian seasoning",
         "amount": 0.25,
         "unit": "teaspoon"
       }
@@ -2727,28 +2592,26 @@ module.exports = [
   {
     "title": "Stovetop Cajun Sausage Rice",
     "description": "Microwave rice gets better with sausage and Cajun seasoning.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "fully cooked sausage",
-        "original": "1 sausage link, sliced",
         "amount": 1,
         "unit": "link"
       },
       {
         "name": "bell pepper",
-        "original": "1/4 bell pepper, diced",
         "amount": 0.25,
         "unit": ""
       },
       {
         "name": "cajun seasoning",
-        "original": "1/2 teaspoon Cajun seasoning",
         "amount": 0.5,
         "unit": "teaspoon"
       }
@@ -2772,34 +2635,31 @@ module.exports = [
   {
     "title": "Microwave Egg Fried Rice Mug",
     "description": "A mug version of fried rice made in the microwave.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cooked rice",
-        "original": "3/4 cup cooked rice",
         "amount": 0.75,
         "unit": "cup"
       },
       {
         "name": "egg",
-        "original": "1 egg",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "soy sauce",
-        "original": "1 teaspoon soy sauce",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "frozen peas",
-        "original": "2 tablespoons frozen peas",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "green onion",
-        "original": "1 tablespoon sliced green onion",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -2823,34 +2683,31 @@ module.exports = [
   {
     "title": "Bagel Pizza Supreme",
     "description": "A bagel pizza topped with vegetables for a slightly bigger lunch.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "bagel",
-        "original": "1 bagel, split",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "pizza sauce",
-        "original": "2 tablespoons pizza sauce",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "mozzarella cheese",
-        "original": "1/4 cup shredded mozzarella",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "bell pepper",
-        "original": "2 tablespoons diced bell pepper",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "black olives",
-        "original": "1 tablespoon sliced black olives",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -2874,34 +2731,31 @@ module.exports = [
   {
     "title": "Microwave Buffalo Chicken Potato",
     "description": "A microwave potato topped with buffalo chicken and a drizzle of ranch.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "russet potato",
-        "original": "1 medium russet potato",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "buffalo sauce",
-        "original": "1 tablespoon buffalo sauce",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "ranch dressing",
-        "original": "1 tablespoon ranch dressing",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -2925,28 +2779,26 @@ module.exports = [
   {
     "title": "Stovetop Garlic Spinach Ramen",
     "description": "Garlic powder and spinach make basic ramen feel more like a meal.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "ramen noodles",
-        "original": "1 package ramen noodles",
         "amount": 1,
         "unit": "package"
       },
       {
         "name": "spinach",
-        "original": "1 cup spinach",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "garlic powder",
-        "original": "1/2 teaspoon garlic powder",
         "amount": 0.5,
         "unit": "teaspoon"
       },
       {
         "name": "soy sauce",
-        "original": "1 teaspoon soy sauce",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -2970,22 +2822,21 @@ module.exports = [
   {
     "title": "Microwave S'mores Dip Mug",
     "description": "A dorm dessert snack with chocolate and marshmallows.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "chocolate chips",
-        "original": "2 tablespoons chocolate chips",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "mini marshmallows",
-        "original": "1/4 cup mini marshmallows",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "graham crackers",
-        "original": "2 graham crackers for dipping",
         "amount": 2,
         "unit": ""
       }
@@ -3009,22 +2860,21 @@ module.exports = [
   {
     "title": "Oven Chicken Tenders and Fries",
     "description": "A freezer-friendly dorm dinner baked on one tray.",
+    "appliance": "Oven",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "frozen chicken tenders",
-        "original": "3 frozen chicken tenders",
         "amount": 3,
         "unit": ""
       },
       {
         "name": "frozen fries",
-        "original": "1 cup frozen fries",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "ketchup",
-        "original": "2 tablespoons ketchup",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -3047,22 +2897,21 @@ module.exports = [
   {
     "title": "Microwave Cheesy Broccoli Potato Soup",
     "description": "A shortcut soup made with canned soup and microwave potato pieces.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "baked potato soup",
-        "original": "1 cup canned baked potato soup",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "frozen broccoli",
-        "original": "1/2 cup frozen broccoli",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -3086,28 +2935,26 @@ module.exports = [
   {
     "title": "Cold Tuna Crackers Lunch Box",
     "description": "A no-cook dorm lunch that works when you do not want to heat food.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "tuna",
-        "original": "1 can tuna, drained",
         "amount": 1,
         "unit": "can"
       },
       {
         "name": "mayonnaise",
-        "original": "1 tablespoon mayonnaise",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "crackers",
-        "original": "12 crackers",
         "amount": 12,
         "unit": ""
       },
       {
         "name": "pickle relish",
-        "original": "1 teaspoon pickle relish",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -3131,34 +2978,31 @@ module.exports = [
   {
     "title": "Microwave Sausage and Egg Breakfast Burrito",
     "description": "A hearty breakfast burrito made almost entirely in the microwave.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "cooked sausage",
-        "original": "2 tablespoons cooked sausage crumbles",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "salsa",
-        "original": "1 tablespoon salsa",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -3182,28 +3026,26 @@ module.exports = [
   {
     "title": "Stovetop Chicken Pesto Pasta",
     "description": "A very simple pasta with pesto and leftover chicken.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "pasta",
-        "original": "1 cup dry pasta",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "pesto",
-        "original": "2 tablespoons pesto",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -3227,28 +3069,26 @@ module.exports = [
   {
     "title": "Microwave Tomato Basil Rice Cup",
     "description": "A savory rice cup with marinara and mozzarella.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "marinara sauce",
-        "original": "1/4 cup marinara sauce",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "mozzarella cheese",
-        "original": "2 tablespoons shredded mozzarella",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "dried basil",
-        "original": "1/4 teaspoon dried basil",
         "amount": 0.25,
         "unit": "teaspoon"
       }
@@ -3272,22 +3112,21 @@ module.exports = [
   {
     "title": "Cold Greek Yogurt Banana Parfait",
     "description": "A cheap and easy breakfast layered in a cup or bowl.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "greek yogurt",
-        "original": "3/4 cup vanilla Greek yogurt",
         "amount": 0.75,
         "unit": "cup"
       },
       {
         "name": "banana",
-        "original": "1/2 banana, sliced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "granola",
-        "original": "1/4 cup granola",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -3311,22 +3150,21 @@ module.exports = [
   {
     "title": "Stovetop Chili Mac",
     "description": "Boxed macaroni and canned chili make a filling one-pot dinner.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "macaroni",
-        "original": "1 cup dry macaroni",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "canned chili",
-        "original": "3/4 cup canned chili",
         "amount": 0.75,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -3349,22 +3187,21 @@ module.exports = [
   {
     "title": "Microwave Honey Cinnamon Apples",
     "description": "A warm snack or topping for oatmeal or yogurt.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "apple",
-        "original": "1 apple, diced",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "honey",
-        "original": "1 teaspoon honey",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "cinnamon",
-        "original": "1/4 teaspoon cinnamon",
         "amount": 0.25,
         "unit": "teaspoon"
       }
@@ -3388,22 +3225,21 @@ module.exports = [
   {
     "title": "Toaster Oven Cheese Toasties",
     "description": "Bread and cheese toasted until melty and crisp.",
+    "appliance": "Toaster Oven",
+    "readyInMinutes": 12,
     "ingredients": [
       {
         "name": "bread",
-        "original": "2 slices bread",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 slices cheddar cheese",
         "amount": 2,
         "unit": "slices"
       },
       {
         "name": "butter",
-        "original": "1 teaspoon butter",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -3426,28 +3262,26 @@ module.exports = [
   {
     "title": "Microwave Chicken Broccoli Alfredo",
     "description": "A microwave bowl that feels like a full dinner with almost no prep.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "frozen broccoli",
-        "original": "1/2 cup frozen broccoli",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "alfredo sauce",
-        "original": "1/3 cup jarred Alfredo sauce",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "cooked pasta",
-        "original": "1 cup cooked pasta",
         "amount": 1,
         "unit": "cup"
       }
@@ -3471,28 +3305,26 @@ module.exports = [
   {
     "title": "Stovetop Sesame Peanut Ramen",
     "description": "Peanut butter and soy sauce make ramen creamy and savory.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "ramen noodles",
-        "original": "1 package ramen noodles",
         "amount": 1,
         "unit": "package"
       },
       {
         "name": "peanut butter",
-        "original": "1 tablespoon peanut butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "soy sauce",
-        "original": "1 teaspoon soy sauce",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "sesame seeds",
-        "original": "1 teaspoon sesame seeds",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -3516,22 +3348,21 @@ module.exports = [
   {
     "title": "Microwave Egg and Salsa Cup",
     "description": "A super easy egg cup with salsa for flavor.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "salsa",
-        "original": "2 tablespoons salsa",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -3556,34 +3387,31 @@ module.exports = [
   {
     "title": "Cold Turkey Ranch Pasta Salad",
     "description": "A simple cold pasta salad with deli turkey and ranch.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cooked pasta",
-        "original": "1 cup cooked pasta",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "deli turkey",
-        "original": "3 slices deli turkey, chopped",
         "amount": 3,
         "unit": "slices"
       },
       {
         "name": "ranch dressing",
-        "original": "2 tablespoons ranch dressing",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "peas",
-        "original": "1/4 cup peas",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -3606,28 +3434,26 @@ module.exports = [
   {
     "title": "Microwave Mini Lasagna Bowl",
     "description": "Layered ravioli, sauce, and cheese in one microwaveable bowl.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "refrigerated ravioli",
-        "original": "1 cup refrigerated ravioli",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "marinara sauce",
-        "original": "1/2 cup marinara sauce",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "mozzarella cheese",
-        "original": "1/4 cup shredded mozzarella",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "ricotta cheese",
-        "original": "2 tablespoons ricotta cheese",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -3651,34 +3477,31 @@ module.exports = [
   {
     "title": "Oven BBQ Chicken Flatbread",
     "description": "Store-bought flatbread topped with barbecue sauce and chicken.",
+    "appliance": "Oven",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "naan or flatbread",
-        "original": "1 naan or flatbread",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "barbecue sauce",
-        "original": "2 tablespoons barbecue sauce",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "cooked chicken",
-        "original": "1/2 cup shredded cooked chicken",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "mozzarella cheese",
-        "original": "1/3 cup shredded mozzarella",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "red onion",
-        "original": "2 tablespoons thinly sliced red onion",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -3701,28 +3524,26 @@ module.exports = [
   {
     "title": "Microwave Cottage Cheese Egg Bowl",
     "description": "Cottage cheese makes microwave eggs creamier and higher in protein.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "cottage cheese",
-        "original": "2 tablespoons cottage cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "spinach",
-        "original": "1/2 cup spinach",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "salt",
-        "original": "Pinch of salt",
         "amount": 1,
         "unit": "pinch"
       }
@@ -3747,28 +3568,26 @@ module.exports = [
   {
     "title": "Stovetop Tomato Tuna Noodles",
     "description": "Tuna and tomato sauce make a simple cheap pasta dinner.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "egg noodles",
-        "original": "2 ounces egg noodles",
         "amount": 2,
         "unit": "ounces"
       },
       {
         "name": "tuna",
-        "original": "1/2 can tuna, drained",
         "amount": 0.5,
         "unit": "can"
       },
       {
         "name": "marinara sauce",
-        "original": "1/2 cup marinara sauce",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -3792,28 +3611,26 @@ module.exports = [
   {
     "title": "Cold Apple Peanut Butter Yogurt Bowl",
     "description": "A balanced snack with yogurt, apples, and peanut butter.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "greek yogurt",
-        "original": "3/4 cup plain Greek yogurt",
         "amount": 0.75,
         "unit": "cup"
       },
       {
         "name": "apple",
-        "original": "1/2 apple, diced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "peanut butter",
-        "original": "1 tablespoon peanut butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "granola",
-        "original": "2 tablespoons granola",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -3837,34 +3654,31 @@ module.exports = [
   {
     "title": "Microwave Nacho Potato",
     "description": "A dorm-style loaded potato with nacho toppings.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "russet potato",
-        "original": "1 medium russet potato",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "black beans",
-        "original": "1/4 cup black beans, drained",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "cheddar cheese",
-        "original": "1/4 cup shredded cheddar cheese",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "salsa",
-        "original": "2 tablespoons salsa",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "sour cream",
-        "original": "1 tablespoon sour cream",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -3888,28 +3702,26 @@ module.exports = [
   {
     "title": "Stovetop Butter Garlic Tortellini",
     "description": "A very simple pasta dish with cheese tortellini, butter, and garlic.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "cheese tortellini",
-        "original": "1 package refrigerated cheese tortellini",
         "amount": 1,
         "unit": "package"
       },
       {
         "name": "butter",
-        "original": "1 tablespoon butter",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "garlic powder",
-        "original": "1/2 teaspoon garlic powder",
         "amount": 0.5,
         "unit": "teaspoon"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -3933,28 +3745,26 @@ module.exports = [
   {
     "title": "Microwave Cheesy Corn Grits Cup",
     "description": "Instant grits become a filling savory bowl with cheese and corn.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "instant grits",
-        "original": "1 packet instant grits",
         "amount": 1,
         "unit": "packet"
       },
       {
         "name": "water",
-        "original": "Water according to packet",
         "amount": 1,
         "unit": "serving"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "corn",
-        "original": "1/4 cup corn",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -3978,28 +3788,26 @@ module.exports = [
   {
     "title": "Cold Pesto Mozzarella Wrap",
     "description": "A simple wrap with mozzarella, pesto, and spinach.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "mozzarella",
-        "original": "1/3 cup mozzarella cubes or shredded mozzarella",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "pesto",
-        "original": "1 tablespoon pesto",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "spinach",
-        "original": "1/2 cup spinach",
         "amount": 0.5,
         "unit": "cup"
       }
@@ -4022,28 +3830,26 @@ module.exports = [
   {
     "title": "Microwave Buffalo Tuna Rice Bowl",
     "description": "Buffalo sauce and tuna turn rice into a fast spicy lunch.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "tuna",
-        "original": "1 can tuna, drained",
         "amount": 1,
         "unit": "can"
       },
       {
         "name": "buffalo sauce",
-        "original": "1 tablespoon buffalo sauce",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "ranch dressing",
-        "original": "1 tablespoon ranch dressing",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -4067,28 +3873,26 @@ module.exports = [
   {
     "title": "Stovetop Creamy Peas and Shells",
     "description": "Small pasta shells in a simple creamy sauce with peas.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "small pasta shells",
-        "original": "1 cup dry small pasta shells",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "frozen peas",
-        "original": "1/2 cup frozen peas",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "alfredo sauce",
-        "original": "1/3 cup jarred Alfredo sauce",
         "amount": 0.333,
         "unit": "cup"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -4112,28 +3916,26 @@ module.exports = [
   {
     "title": "Microwave Brown Sugar Banana Mug Oats",
     "description": "A sweet microwave oatmeal made in a mug for less cleanup.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "quick oats",
-        "original": "1/2 cup quick oats",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "milk",
-        "original": "1/2 cup milk",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "banana",
-        "original": "1/2 banana, mashed",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "brown sugar",
-        "original": "1 tablespoon brown sugar",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -4157,28 +3959,26 @@ module.exports = [
   {
     "title": "Oven Ham and Cheese Sliders",
     "description": "Easy baked sliders that work well for sharing.",
+    "appliance": "Oven",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "slider buns",
-        "original": "4 slider buns",
         "amount": 4,
         "unit": ""
       },
       {
         "name": "deli ham",
-        "original": "8 slices deli ham",
         "amount": 8,
         "unit": "slices"
       },
       {
         "name": "swiss cheese",
-        "original": "4 slices Swiss cheese",
         "amount": 4,
         "unit": "slices"
       },
       {
         "name": "butter",
-        "original": "1 tablespoon melted butter",
         "amount": 1,
         "unit": "tablespoon"
       }
@@ -4201,28 +4001,26 @@ module.exports = [
   {
     "title": "Microwave Parmesan Peas Rice",
     "description": "Rice and peas tossed with butter and parmesan.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "microwave rice",
-        "original": "1 cup microwave rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "frozen peas",
-        "original": "1/2 cup frozen peas",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "butter",
-        "original": "1 teaspoon butter",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "parmesan cheese",
-        "original": "2 tablespoons grated parmesan",
         "amount": 2,
         "unit": "tablespoons"
       }
@@ -4246,28 +4044,26 @@ module.exports = [
   {
     "title": "Cold Banana Honey Cottage Bowl",
     "description": "A sweet snack with cottage cheese and banana.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cottage cheese",
-        "original": "1 cup cottage cheese",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "banana",
-        "original": "1/2 banana, sliced",
         "amount": 0.5,
         "unit": ""
       },
       {
         "name": "honey",
-        "original": "1 teaspoon honey",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "cinnamon",
-        "original": "1/8 teaspoon cinnamon",
         "amount": 0.125,
         "unit": "teaspoon"
       }
@@ -4291,28 +4087,26 @@ module.exports = [
   {
     "title": "Stovetop Taco Egg Scramble",
     "description": "Eggs scrambled with salsa and cheese for a fast savory breakfast.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "egg",
-        "original": "2 eggs",
         "amount": 2,
         "unit": ""
       },
       {
         "name": "salsa",
-        "original": "2 tablespoons salsa",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "cheddar cheese",
-        "original": "2 tablespoons shredded cheddar cheese",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "butter",
-        "original": "1 teaspoon butter",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -4336,28 +4130,26 @@ module.exports = [
   {
     "title": "Microwave Pepperoni Pasta Bowl",
     "description": "Pasta sauce, pepperoni, and cheese make this taste like pizza pasta.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cooked pasta",
-        "original": "1 cup cooked pasta",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "marinara sauce",
-        "original": "1/2 cup marinara sauce",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "pepperoni",
-        "original": "8 slices pepperoni",
         "amount": 8,
         "unit": "slices"
       },
       {
         "name": "mozzarella cheese",
-        "original": "1/4 cup shredded mozzarella",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -4380,28 +4172,26 @@ module.exports = [
   {
     "title": "Cold Sunflower Butter Banana Wrap",
     "description": "A nut-free dorm snack wrap that still feels filling.",
+    "appliance": "No Cooking",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "flour tortilla",
-        "original": "1 large flour tortilla",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "sunflower seed butter",
-        "original": "2 tablespoons sunflower seed butter",
         "amount": 2,
         "unit": "tablespoons"
       },
       {
         "name": "banana",
-        "original": "1 banana",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "honey",
-        "original": "1 teaspoon honey",
         "amount": 1,
         "unit": "teaspoon"
       }
@@ -4423,28 +4213,26 @@ module.exports = [
   {
     "title": "Stovetop Mac and Tuna",
     "description": "Simple macaroni with tuna and a little mayo or butter for creaminess.",
+    "appliance": "Stovetop",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "macaroni",
-        "original": "1 cup dry macaroni",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "tuna",
-        "original": "1 can tuna, drained",
         "amount": 1,
         "unit": "can"
       },
       {
         "name": "mayonnaise",
-        "original": "1 tablespoon mayonnaise",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "peas",
-        "original": "1/4 cup peas",
         "amount": 0.25,
         "unit": "cup"
       }
@@ -4468,28 +4256,26 @@ module.exports = [
   {
     "title": "Microwave Veggie Marinara Couscous",
     "description": "Instant couscous and marinara make a fast dorm bowl.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "instant couscous",
-        "original": "1/2 cup instant couscous",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "water",
-        "original": "1/2 cup water",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "marinara sauce",
-        "original": "1/4 cup marinara sauce",
         "amount": 0.25,
         "unit": "cup"
       },
       {
         "name": "frozen mixed vegetables",
-        "original": "1/2 cup frozen mixed vegetables",
         "amount": 0.5,
         "unit": "cup"
       }
@@ -4514,28 +4300,26 @@ module.exports = [
   {
     "title": "Oven Pita Cheese Chips",
     "description": "A crunchy snack made with pita bread, oil, and seasoning.",
+    "appliance": "Oven",
+    "readyInMinutes": 15,
     "ingredients": [
       {
         "name": "pita bread",
-        "original": "1 pita bread",
         "amount": 1,
         "unit": ""
       },
       {
         "name": "olive oil",
-        "original": "1 teaspoon olive oil",
         "amount": 1,
         "unit": "teaspoon"
       },
       {
         "name": "parmesan cheese",
-        "original": "1 tablespoon grated parmesan",
         "amount": 1,
         "unit": "tablespoon"
       },
       {
         "name": "italian seasoning",
-        "original": "1/4 teaspoon Italian seasoning",
         "amount": 0.25,
         "unit": "teaspoon"
       }
@@ -4559,28 +4343,26 @@ module.exports = [
   {
     "title": "Microwave Breakfast Rice Pudding",
     "description": "Leftover rice becomes a sweet breakfast with milk and cinnamon.",
+    "appliance": "Microwave",
+    "readyInMinutes": 5,
     "ingredients": [
       {
         "name": "cooked rice",
-        "original": "1 cup cooked rice",
         "amount": 1,
         "unit": "cup"
       },
       {
         "name": "milk",
-        "original": "1/2 cup milk",
         "amount": 0.5,
         "unit": "cup"
       },
       {
         "name": "cinnamon",
-        "original": "1/4 teaspoon cinnamon",
         "amount": 0.25,
         "unit": "teaspoon"
       },
       {
         "name": "brown sugar",
-        "original": "1 tablespoon brown sugar",
         "amount": 1,
         "unit": "tablespoon"
       }

@@ -2,33 +2,9 @@ import mongoose from "mongoose";
 
 const ingredientSchema = new mongoose.Schema(
   {
-    id: {
-      type: Number,
-      required: false,
-    },
-    aisle: {
-      type: String,
-      required: false,
-      trim: true,
-    },
-    image: {
-      type: String,
-      required: false,
-      trim: true,
-    },
-    consistency: {
-      type: String,
-      required: false,
-      trim: true,
-    },
     name: {
       type: String,
       required: true,
-      trim: true,
-    },
-    original: {
-      type: String,
-      required: false,
       trim: true,
     },
     amount: {
@@ -46,41 +22,16 @@ const ingredientSchema = new mongoose.Schema(
 
 const recipeSchema = new mongoose.Schema(
   {
-    spoonacularId: {
-      type: Number,
-      required: false,
-      unique: true,
-      sparse: true,
-    },
     title: {
       type: String,
       required: true,
       trim: true,
     },
-    image: {
-      type: String,
-      required: false,
-      trim: true,
-    },
-    imageType: {
-      type: String,
-      required: false,
-      trim: true,
-    },
-    servings: {
-      type: Number,
-      required: false,
-    },
     readyInMinutes: {
       type: Number,
       required: false,
     },
-    sourceUrl: {
-      type: String,
-      required: false,
-      trim: true,
-    },
-    spoonacularSourceUrl: {
+    appliance: {
       type: String,
       required: false,
       trim: true,
@@ -95,70 +46,6 @@ const recipeSchema = new mongoose.Schema(
       required: false,
       trim: true,
     },
-    vegetarian: {
-      type: Boolean,
-      default: false,
-    },
-    vegan: {
-      type: Boolean,
-      default: false,
-    },
-    glutenFree: {
-      type: Boolean,
-      default: false,
-    },
-    dairyFree: {
-      type: Boolean,
-      default: false,
-    },
-    cheap: {
-      type: Boolean,
-      default: false,
-    },
-    veryHealthy: {
-      type: Boolean,
-      default: false,
-    },
-    veryPopular: {
-      type: Boolean,
-      default: false,
-    },
-    sustainable: {
-      type: Boolean,
-      default: false,
-    },
-    lowFodmap: {
-      type: Boolean,
-      default: false,
-    },
-    aggregateLikes: {
-      type: Number,
-      required: false,
-    },
-    healthScore: {
-      type: Number,
-      required: false,
-    },
-    pricePerServing: {
-      type: Number,
-      required: false,
-    },
-    cuisines: {
-      type: [String],
-      default: [],
-    },
-    dishTypes: {
-      type: [String],
-      default: [],
-    },
-    diets: {
-      type: [String],
-      default: [],
-    },
-    occasions: {
-      type: [String],
-      default: [],
-    },
     ingredients: {
       type: [ingredientSchema],
       default: [],
@@ -172,7 +59,7 @@ const recipeSchema = new mongoose.Schema(
       default: [],
     },
   },
-  { timestamps: true }
+  { versionKey: false }
 );
 
 // exposes MongoDB's _id as id so the frontend can use a familiar field name
@@ -180,11 +67,19 @@ recipeSchema.virtual("id").get(function getId() {
   return this._id.toString();
 });
 
+// derives display-friendly time text from the stored minute count
+recipeSchema.virtual("time").get(function getTime() {
+  if (typeof this.readyInMinutes !== "number") {
+    return undefined;
+  }
+
+  return `${this.readyInMinutes} min${this.readyInMinutes === 1 ? "" : "s"}`;
+});
+
 // removes Mongo-specific fields from API responses while keeping id available
 const transformRecipe = (_doc, ret) => {
   ret.id = ret._id.toString();
   delete ret._id;
-  delete ret.__v;
   return ret;
 };
 

@@ -12,6 +12,14 @@ const serializeRecipe = (recipe) => {
   }
 
   const serializedRecipe = { ...recipe, id: recipe._id?.toString?.() ?? recipe._id };
+  if (
+    serializedRecipe.time === undefined &&
+    typeof serializedRecipe.readyInMinutes === "number"
+  ) {
+    serializedRecipe.time = `${serializedRecipe.readyInMinutes} min${
+      serializedRecipe.readyInMinutes === 1 ? "" : "s"
+    }`;
+  }
   delete serializedRecipe._id;
   delete serializedRecipe.__v;
   return serializedRecipe;
@@ -20,16 +28,17 @@ const serializeRecipe = (recipe) => {
 /*
   How to use:
   GET /api/recipes
-  Optional query params: title, ingredients=egg,milk, tags=quick_meal,microwave
+  Optional query params: title, appliance, ingredients=egg,milk, tags=quick_meal,microwave
 
   Searches for recipes based on url query parameters and returns a list of matching recipes sorted by relevance to the search criteria:
   - title: search for recipes with a title that matches the query
+  - appliance: search for recipes by appliance name
   - ingredients: search for recipes that contain one or more of the specified ingredients
   - tags: search for recipes that contain any of the specified tags
 */
 const getRecipes = async (req, res) => {
   try {
-    const { title, ingredients, tags } = req.query;
+    const { title, appliance, ingredients, tags } = req.query;
 
     const ingredientList = ingredients
       ? ingredients
@@ -51,6 +60,10 @@ const getRecipes = async (req, res) => {
 
     if (title) {
       matchStage.title = { $regex: title, $options: "i" };
+    }
+
+    if (appliance) {
+      matchStage.appliance = { $regex: appliance, $options: "i" };
     }
 
     if (tagList.length > 0) {
@@ -178,10 +191,19 @@ const getRecipeById = async (req, res) => {
 */
 const createRecipe = async (req, res) => {
   try {
-    const { title, ingredients, instructions, ...optionalFields } = req.body;
+    const { title, appliance, readyInMinutes, ingredients, instructions, ...optionalFields } =
+      req.body;
 
     if (!title?.trim()) {
       return res.status(400).json({ message: "Title is required" });
+    }
+
+    if (appliance !== undefined && typeof appliance !== "string") {
+      return res.status(400).json({ message: "Appliance must be a string" });
+    }
+
+    if (readyInMinutes !== undefined && typeof readyInMinutes !== "number") {
+      return res.status(400).json({ message: "readyInMinutes must be a number" });
     }
 
     if (ingredients && !Array.isArray(ingredients)) {
@@ -194,6 +216,8 @@ const createRecipe = async (req, res) => {
 
     const recipe = await Recipe.create({
       title: title.trim(),
+      appliance: appliance?.trim() ?? "",
+      readyInMinutes,
       ingredients: ingredients ?? [],
       instructions: instructions ?? [],
       ...optionalFields
@@ -235,6 +259,21 @@ const updateRecipe = async (req, res) => {
         return res.status(400).json({ message: "Title cannot be empty" });
       }
       updates.title = updates.title.trim();
+    }
+
+    if (updates.appliance !== undefined) {
+      if (typeof updates.appliance !== "string") {
+        return res.status(400).json({ message: "Appliance must be a string" });
+      }
+      updates.appliance = updates.appliance.trim();
+    }
+
+    if (updates.readyInMinutes !== undefined && typeof updates.readyInMinutes !== "number") {
+      return res.status(400).json({ message: "readyInMinutes must be a number" });
+    }
+
+    if (updates.time !== undefined) {
+      delete updates.time;
     }
 
     if (updates.ingredients !== undefined && !Array.isArray(updates.ingredients)) {
