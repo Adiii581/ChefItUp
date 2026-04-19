@@ -1,8 +1,10 @@
 /*-------------------------------------------------
 
-Load to file only: node load-recipes/load-100-recipes.js
+Load 10 recipes to a review file only:
+node load-recipes/load-100-recipes.js
 
-Load to db and seperate file: node load-recipes/load-100-recipes.js --load
+Load 10 recipes to the review file and database:
+node load-recipes/load-100-recipes.js --load
 
 --------------------------------------------------*/
 import { mkdir, writeFile } from "node:fs/promises";
@@ -29,7 +31,7 @@ const FETCH_RETRY_DELAY_MS = 1000;
 const INSPECTION_OUTPUT_DIR = path.join(backendDir, "load-recipes", "output");
 const INSPECTION_OUTPUT_FILE = path.join(
   INSPECTION_OUTPUT_DIR,
-  "normalized-100-recipes.json"
+  "manual-review-10-recipes.json"
 );
 const shouldLoadToDatabase = process.argv.includes("--load");
 
@@ -41,7 +43,7 @@ const buildSearchUrl = ({ query, type, maxReadyTime, limit = 10, offset = 0 }) =
     offset: String(offset),
     addRecipeInformation: "false",
     fillIngredients: "false",
-    instructionsRequired: "false",
+    instructionsRequired: "true",
     sort: "popularity",
   });
 
@@ -109,37 +111,184 @@ const normalizeIngredient = (ingredient) => ({
   unit: ingredient.unit,
 });
 
-const normalizeRecipe = (recipe) => ({
-  id: recipe.id,
-  title: recipe.title,
-  image: recipe.image,
-  imageType: recipe.imageType,
-  servings: recipe.servings,
-  readyInMinutes: recipe.readyInMinutes,
-  sourceUrl: recipe.sourceUrl,
-  spoonacularSourceUrl: recipe.spoonacularSourceUrl,
-  summary: recipe.summary,
-  instructions: recipe.instructions,
-  vegetarian: recipe.vegetarian,
-  vegan: recipe.vegan,
-  glutenFree: recipe.glutenFree,
-  dairyFree: recipe.dairyFree,
-  cheap: recipe.cheap,
-  veryHealthy: recipe.veryHealthy,
-  veryPopular: recipe.veryPopular,
-  sustainable: recipe.sustainable,
-  lowFodmap: recipe.lowFodmap,
-  aggregateLikes: recipe.aggregateLikes,
-  healthScore: recipe.healthScore,
-  pricePerServing: recipe.pricePerServing,
-  cuisines: Array.isArray(recipe.cuisines) ? recipe.cuisines : [],
-  dishTypes: Array.isArray(recipe.dishTypes) ? recipe.dishTypes : [],
-  diets: Array.isArray(recipe.diets) ? recipe.diets : [],
-  occasions: Array.isArray(recipe.occasions) ? recipe.occasions : [],
-  extendedIngredients: Array.isArray(recipe.extendedIngredients)
-    ? recipe.extendedIngredients.map(normalizeIngredient)
-    : [],
+const buildManualReviewIngredient = (ingredient) => ({
+  name: ingredient.name ?? ingredient.originalName ?? "Unknown ingredient",
+  original: ingredient.original ?? ingredient.originalName ?? ingredient.name ?? "",
+  amount: ingredient.amount ?? null,
+  unit: ingredient.unit ?? "",
 });
+
+const buildInstructionSteps = (recipe) => {
+  const analyzedInstructions = Array.isArray(recipe.analyzedInstructions)
+    ? recipe.analyzedInstructions
+    : [];
+
+  const analyzedSteps = analyzedInstructions.flatMap((instructionGroup) =>
+    Array.isArray(instructionGroup.steps)
+      ? instructionGroup.steps
+          .map((step) => stripHtml(step.step ?? ""))
+          .filter(Boolean)
+      : []
+  );
+
+  if (analyzedSteps.length > 0) {
+    return analyzedSteps;
+  }
+
+  const fallbackInstructions = stripHtml(recipe.instructions ?? "");
+  return fallbackInstructions ? [fallbackInstructions] : [];
+};
+
+const buildEquipmentList = (recipe) => {
+  const analyzedInstructions = Array.isArray(recipe.analyzedInstructions)
+    ? recipe.analyzedInstructions
+    : [];
+
+  const equipmentNames = analyzedInstructions.flatMap((instructionGroup) =>
+    Array.isArray(instructionGroup.steps)
+      ? instructionGroup.steps.flatMap((step) =>
+          Array.isArray(step.equipment)
+            ? step.equipment
+                .map((equipment) => equipment.name?.trim())
+                .filter(Boolean)
+            : []
+        )
+      : []
+  );
+
+  return Array.from(new Set(equipmentNames));
+};
+
+const buildRecipeTags = (recipe, equipmentList) => {
+  const normalizedEquipment = equipmentList.map((item) => item.toLowerCase());
+  const normalizedInstructions = buildInstructionSteps(recipe)
+    .join(" ")
+    .toLowerCase();
+  const tags = new Set();
+
+  for (const rule of APPLIANCE_TAG_RULES) {
+    if (rule.equipment.some((equipment) => normalizedEquipment.includes(equipment))) {
+      tags.add(rule.tag);
+    }
+  }
+
+  if (normalizedEquipment.length === 0) {
+    tags.add("no_equipment_listed");
+  }
+
+  const applianceOnlyEquipment = normalizedEquipment.filter((equipment) =>
+    APPLIANCE_TAG_RULES.some((rule) => rule.equipment.includes(equipment))
+  );
+
+  if (applianceOnlyEquipment.length === 0) {
+    tags.add("no_appliance_needed");
+  }
+
+  if (
+    tags.has("microwave") &&
+    !tags.has("stovetop") &&
+    !tags.has("oven") &&
+    !tags.has("grill") &&
+    !tags.has("air_fryer") &&
+    !tags.has("pressure_cooker") &&
+    !tags.has("slow_cooker") &&
+    !tags.has("rice_cooker")
+  ) {
+    tags.add("microwave_only");
+  }
+
+  if (normalizedInstructions.includes("overnight") || normalizedInstructions.includes("refrigerate")) {
+    tags.add("prep_ahead");
+  }
+
+  if (recipe.readyInMinutes && recipe.readyInMinutes <= 15) {
+    tags.add("quick_meal");
+  }
+
+  return Array.from(tags);
+};
+
+const buildManualReviewRecipe = (recipe) => {
+  const equipment = buildEquipmentList(recipe);
+
+  return {
+    spoonacularId: recipe.id,
+    title: recipe.title ?? "",
+    description: stripHtml(recipe.summary ?? ""),
+    ingredients: Array.isArray(recipe.extendedIngredients)
+      ? recipe.extendedIngredients.map(buildManualReviewIngredient)
+      : [],
+    instructions: buildInstructionSteps(recipe),
+    equipment,
+    tags: buildRecipeTags(recipe, equipment),
+  };
+};
+
+const scoreRecipeForTagCoverage = (recipe, uncoveredTags) => {
+  const tags = Array.isArray(recipe.tags) ? recipe.tags : [];
+  const coverageScore = tags.filter((tag) => uncoveredTags.has(tag)).length;
+  const varietyScore = tags.length;
+  return coverageScore * 100 + varietyScore;
+};
+
+const selectDiverseRecipes = (recipes, targetCount) => {
+  const remaining = [...recipes];
+  const selected = [];
+  const allTags = new Set(remaining.flatMap((recipe) => recipe.tags ?? []));
+
+  while (selected.length < targetCount && remaining.length > 0) {
+    remaining.sort(
+      (a, b) => scoreRecipeForTagCoverage(b, allTags) - scoreRecipeForTagCoverage(a, allTags)
+    );
+
+    const nextRecipe = remaining.shift();
+    selected.push(nextRecipe);
+
+    for (const tag of nextRecipe.tags ?? []) {
+      allTags.delete(tag);
+    }
+  }
+
+  return selected;
+};
+
+const normalizeRecipe = (recipe) => {
+  const equipment = buildEquipmentList(recipe);
+
+  return {
+    spoonacularId: recipe.id,
+    title: recipe.title,
+    image: recipe.image,
+    imageType: recipe.imageType,
+    servings: recipe.servings,
+    readyInMinutes: recipe.readyInMinutes,
+    sourceUrl: recipe.sourceUrl,
+    spoonacularSourceUrl: recipe.spoonacularSourceUrl,
+    description: stripHtml(recipe.summary ?? ""),
+    instructions: buildInstructionSteps(recipe),
+    vegetarian: recipe.vegetarian,
+    vegan: recipe.vegan,
+    glutenFree: recipe.glutenFree,
+    dairyFree: recipe.dairyFree,
+    cheap: recipe.cheap,
+    veryHealthy: recipe.veryHealthy,
+    veryPopular: recipe.veryPopular,
+    sustainable: recipe.sustainable,
+    lowFodmap: recipe.lowFodmap,
+    aggregateLikes: recipe.aggregateLikes,
+    healthScore: recipe.healthScore,
+    pricePerServing: recipe.pricePerServing,
+    cuisines: Array.isArray(recipe.cuisines) ? recipe.cuisines : [],
+    dishTypes: Array.isArray(recipe.dishTypes) ? recipe.dishTypes : [],
+    diets: Array.isArray(recipe.diets) ? recipe.diets : [],
+    occasions: Array.isArray(recipe.occasions) ? recipe.occasions : [],
+    ingredients: Array.isArray(recipe.extendedIngredients)
+      ? recipe.extendedIngredients.map(normalizeIngredient)
+      : [],
+    equipment,
+    tags: buildRecipeTags(recipe, equipment),
+  };
+};
 
 const validateNormalizedRecipe = (recipe) => {
   const validationCandidate = new Recipe(recipe);
@@ -179,7 +328,7 @@ const fetchCandidateIds = async () => {
     }
   }
 
-  return Array.from(uniqueIds).slice(0, TARGET_RECIPE_COUNT);
+  return Array.from(uniqueIds).slice(0, CANDIDATE_POOL_SIZE);
 };
 
 const fetchDetailedRecipes = async (ids) => {
@@ -218,9 +367,15 @@ const loadRecipes = async () => {
 
   const detailedRecipes = await fetchDetailedRecipes(candidateIds);
   const normalizedRecipes = detailedRecipes.map(normalizeRecipe);
-  const validatedRecipes = normalizedRecipes.map(validateNormalizedRecipe);
+  const selectedNormalizedRecipes = selectDiverseRecipes(normalizedRecipes, TARGET_RECIPE_COUNT);
+  const selectedRecipesById = new Map(detailedRecipes.map((recipe) => [recipe.id, recipe]));
+  const manualReviewRecipes = selectedNormalizedRecipes
+    .map((recipe) => selectedRecipesById.get(recipe.spoonacularId))
+    .filter(Boolean)
+    .map(buildManualReviewRecipe);
+  const validatedRecipes = selectedNormalizedRecipes.map(validateNormalizedRecipe);
 
-  await writeInspectionFile(validatedRecipes);
+  await writeInspectionFile(manualReviewRecipes);
   console.log(`Inspection copy written to ${INSPECTION_OUTPUT_FILE}`);
 
   if (!shouldLoadToDatabase) {
@@ -230,7 +385,9 @@ const loadRecipes = async () => {
   }
 
   await connectMongo();
-  await Recipe.deleteMany({ id: { $in: validatedRecipes.map((recipe) => recipe.id) } });
+  await Recipe.deleteMany({
+    spoonacularId: { $in: validatedRecipes.map((recipe) => recipe.spoonacularId).filter(Boolean) }
+  });
   await Recipe.insertMany(validatedRecipes, { ordered: true });
 
   console.log(`Inserted ${validatedRecipes.length} recipes into MongoDB.`);
