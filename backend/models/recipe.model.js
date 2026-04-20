@@ -46,10 +46,11 @@ const ingredientSchema = new mongoose.Schema(
 
 const recipeSchema = new mongoose.Schema(
   {
-    id: {
+    spoonacularId: {
       type: Number,
-      required: true,
+      required: false,
       unique: true,
+      sparse: true,
     },
     title: {
       type: String,
@@ -84,13 +85,13 @@ const recipeSchema = new mongoose.Schema(
       required: false,
       trim: true,
     },
-    summary: {
+    description: {
       type: String,
       required: false,
       trim: true,
     },
     instructions: {
-      type: String,
+      type: [String],
       required: false,
       trim: true,
     },
@@ -158,12 +159,43 @@ const recipeSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
-    extendedIngredients: {
+    ingredients: {
       type: [ingredientSchema],
+      default: [],
+    },
+    equipment: {
+      type: [String],
+      default: [],
+    },
+    tags: {
+      type: [String],
       default: [],
     },
   },
   { timestamps: true }
 );
+
+// exposes MongoDB's _id as id so the frontend can use a familiar field name
+recipeSchema.virtual("id").get(function getId() {
+  return this._id.toString();
+});
+
+// removes Mongo-specific fields from API responses while keeping id available
+const transformRecipe = (_doc, ret) => {
+  ret.id = ret._id.toString();
+  delete ret._id;
+  delete ret.__v;
+  return ret;
+};
+
+recipeSchema.set("toJSON", {
+  virtuals: true,
+  transform: transformRecipe,
+});
+
+recipeSchema.set("toObject", {
+  virtuals: true,
+  transform: transformRecipe,
+});
 
 export default mongoose.model("Recipe", recipeSchema);
