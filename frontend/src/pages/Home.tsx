@@ -25,7 +25,7 @@ export default function Home() {
           params.append("tags", appliance.toLowerCase());
         }
 
-        const res = await fetch(`/api/recipes?${params.toString()}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/recipes?${params.toString()}`);
         const data = await res.json();
 
         setRecipes(data);
