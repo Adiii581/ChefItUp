@@ -1,8 +1,25 @@
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function RecipeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [recipe, setRecipe] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      try {
+        const res = await fetch(`/api/recipes/${id}`);
+        const data = await res.json();
+        setRecipe(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchRecipe();
+  }, [id]);
 
   return (
     <div className="recipe-detail">
@@ -15,17 +32,40 @@ export default function RecipeDetail() {
       </div>
 
       <div className="detail-card">
-        <h2 style={{ marginBottom: "1rem" }}>Mock Recipe #{id}</h2>
+        <h2 style={{ marginBottom: "1rem" }}>
+          {recipe?.title || `Recipe #${id}`}
+        </h2>
+
+        {/* Ingredients */}
         <h3>Ingredients</h3>
         <ul>
-          <li>Mock Ingredient 1</li>
-          <li>Mock Ingredient 2</li>
+          {recipe?.ingredients?.length ? (
+            recipe.ingredients.map((ing: any, idx: number) => (
+              <li key={idx}>
+                {ing.amount ? `${ing.amount} ` : ""}
+                {ing.unit ? `${ing.unit} ` : ""}
+                {ing.name}
+              </li>
+            ))
+          ) : (
+            <>
+              <li>No ingredients found</li>
+            </>
+          )}
         </ul>
+
+        {/* Steps */}
         <h3>Steps</h3>
         <ol>
-          <li>Mix ingredients in a dorm-safe bowl.</li>
-          <li>Cook using the specified appliance.</li>
-          <li>Enjoy so you can get back to studying!</li>
+          {recipe?.instructions?.length ? (
+            recipe.instructions.map((step: string, idx: number) => (
+              <li key={idx}>{step}</li>
+            ))
+          ) : (
+            <>
+              <li>No instructions found</li>
+            </>
+          )}
         </ol>
       </div>
     </div>
