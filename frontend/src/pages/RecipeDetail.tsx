@@ -10,7 +10,7 @@ export default function RecipeDetail() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const res = await fetch(`/api/recipes/${id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/recipes/${id}`);
         const data = await res.json();
         setRecipe(data);
       } catch (err) {
