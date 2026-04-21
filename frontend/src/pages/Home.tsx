@@ -22,7 +22,7 @@ export default function Home() {
         }
 
         if (appliance !== "All") {
-          params.append("tags", appliance.toLowerCase());
+          params.append("appliance", appliance);
         }
 
         const res = await fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/recipes?${params.toString()}`);
@@ -67,8 +67,10 @@ export default function Home() {
         >
           <option value="All">All Appliances</option>
           <option value="Microwave">Microwave</option>
-          <option value="Kettle">Kettle</option>
-          <option value="Mini-Fridge">No Cooking</option>
+          <option value="No Cooking">No Cooking</option>
+          <option value="Stovetop">Stovetop</option>
+          <option value="Oven">Oven</option>
+          <option value="Toaster Oven">Toaster Oven</option>
         </select>
       </aside>
 
