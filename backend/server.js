@@ -9,12 +9,13 @@ import recipeRoutes from "./routes/recipeRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
-const clientUrl = process.env.CLIENT_URL;
-if (!clientUrl) {
-  throw new Error("Missing CLIENT_URL in backend/.env");
-}
 
-app.use(cors({ origin: process.env.CLIENT_URL }));
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  /\.vercel\.app$/,
+];
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
