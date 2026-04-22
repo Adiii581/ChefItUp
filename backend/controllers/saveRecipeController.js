@@ -1,18 +1,28 @@
 import mongoose from "mongoose";
-import user from "../models/user.js";
+import User from "../models/users.model.js";
 
 const saveRecipe = async (req, res) => {
   try {
     const { recipeId } = req.body;
-    const userId = req.user._id;
+    const userId = req.user.id;
 
     // Validate the recipeId
     if (!mongoose.Types.ObjectId.isValid(recipeId)) {
       return res.status(400).json({ message: "Invalid recipe id" });
     }
 
-    // Check if the recipe is already saved    const userDoc = await user.findById(userId);
-    if (userDoc.savedRecipes.includes(recipeId)) {
+    // Check if the recipe is already saved
+    const userDoc = await User.findById(userId);
+
+    if (!userDoc) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const alreadySaved = userDoc.savedRecipes.some(
+      (id) => id.toString() === recipeId
+    );
+
+    if (alreadySaved) {
       return res.status(400).json({ message: "Recipe already saved" });
     }
 
@@ -29,8 +39,8 @@ const saveRecipe = async (req, res) => {
 
 const getRecipe = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const userDoc = await user.findById(userId).populate("savedRecipes");
+    const userId = req.user.id;
+    const userDoc = await User.findById(userId).populate("savedRecipes");
 
     if (!userDoc) {
       return res.status(404).json({ message: "User not found" });
@@ -43,17 +53,17 @@ const getRecipe = async (req, res) => {
   }
 };
 
-const deleteRecipe = async (req, res) => {
+const unsaveRecipe = async (req, res) => {
   try {
     const { recipeId } = req.body;
-    const userId = req.user._id;
+    const userId = req.user.id;
 
     // Validate the recipeId
     if (!mongoose.Types.ObjectId.isValid(recipeId)) {
       return res.status(400).json({ message: "Invalid recipe id" });
     }
 
-    const userDoc = await user.findById(userId);
+    const userDoc = await User.findById(userId);
 
     if (!userDoc) {
       return res.status(404).json({ message: "User not found" });
@@ -71,4 +81,4 @@ const deleteRecipe = async (req, res) => {
   }
 };
 
-export { saveRecipe, getRecipe, deleteRecipe };
+export { saveRecipe, getRecipe, unsaveRecipe };

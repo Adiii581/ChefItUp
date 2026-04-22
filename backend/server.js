@@ -6,6 +6,7 @@ config();
 import authRoutes from "./routes/authRoute.js";
 import userRoutes from "./routes/userRoute.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
+import saveRecipeRoutes from "./routes/saveRecipeRoute.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api", recipeRoutes);
+app.use("/api", saveRecipeRoutes);
 app.use("/api/user", userRoutes);
 
 await connectMongo();

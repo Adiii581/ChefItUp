@@ -5,7 +5,7 @@ import { protect } from "../middleware/auth.js";
 const router = Router();
 
 router.post("/save-recipe", protect, saveRecipe);
-router.delete("/save-recipe/:id", protect, unsaveRecipe);
+router.delete("/save-recipe", protect, unsaveRecipe);
 router.get("/save-recipe", protect, getRecipe);
 
 export default router;
