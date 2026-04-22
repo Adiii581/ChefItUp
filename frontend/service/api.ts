@@ -1,5 +1,10 @@
 const BASE_URL = import.meta.env.VITE_API_URL ?? "";
 
+const authHeaders = () => ({
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
+
 export const api = {
   login: (email: string, password: string) =>
     fetch(`${BASE_URL}/api/auth/login`, {
@@ -20,5 +25,24 @@ export const api = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
+    }).then((res) => res.json()),
+
+  getSavedRecipes: () =>
+    fetch(`${BASE_URL}/api/save-recipe`, {
+      headers: authHeaders(),
+    }).then((res) => res.json()),
+
+  saveRecipe: (recipeId: string) =>
+    fetch(`${BASE_URL}/api/save-recipe`, {
+      method: "POST",
+      headers: authHeaders(),
+      body: JSON.stringify({ recipeId }),
+    }).then((res) => res.json()),
+
+  unsaveRecipe: (recipeId: string) =>
+    fetch(`${BASE_URL}/api/save-recipe`, {
+      method: "DELETE",
+      headers: authHeaders(),
+      body: JSON.stringify({ recipeId }),
     }).then((res) => res.json()),
 };

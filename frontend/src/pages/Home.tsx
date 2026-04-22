@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../service/api";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [appliance, setAppliance] = useState("All");
   const [recipes, setRecipes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [savedRecipeIds, setSavedRecipeIds] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
@@ -39,9 +41,36 @@ export default function Home() {
     fetchRecipes();
   }, [searchQuery, appliance]);
 
-  const handleSaveClick = (e: React.MouseEvent) => {
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      setSavedRecipeIds([]);
+      return;
+    }
+
+    api.getSavedRecipes().then((data) => {
+      if (Array.isArray(data.savedRecipes)) {
+        setSavedRecipeIds(data.savedRecipes.map((recipe: any) => recipe.id));
+      }
+    });
+  }, []);
+
+  const handleSaveClick = async (e: React.MouseEvent, recipeId: string) => {
     e.stopPropagation();
-    alert("Login required to save recipes");
+
+    if (!localStorage.getItem("token")) {
+      alert("Login required to save recipes");
+      navigate("/login");
+      return;
+    }
+
+    const data = await api.saveRecipe(recipeId);
+
+    if (data.message === "Recipe saved successfully") {
+      setSavedRecipeIds((currentIds) => [...currentIds, recipeId]);
+      return;
+    }
+
+    alert(data.message || "Unable to save recipe");
   };
 
   return (
@@ -121,10 +150,11 @@ export default function Home() {
 
                 {/* Save button */}
                 <button
-                  className="primary-btn mt-4"
-                  onClick={handleSaveClick}
+                  className={savedRecipeIds.includes(recipe.id) ? "secondary-btn mt-4" : "primary-btn mt-4"}
+                  onClick={(e) => handleSaveClick(e, recipe.id)}
+                  disabled={savedRecipeIds.includes(recipe.id)}
                 >
-                  Save
+                  {savedRecipeIds.includes(recipe.id) ? "Saved" : "Save"}
                 </button>
 
               </div>
