@@ -368,6 +368,82 @@
   text-align: center;
 }
 
+/* ── Safety Page ── */
+.safety-page {
+  max-width: 900px;
+}
+
+.safety-page-intro {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+
+.safety-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.safety-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  border-top: 3px solid #c0392b;
+}
+
+.safety-card h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #1a1a1a;
+}
+
+.safety-card ul {
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+.safety-disclaimer {
+  background: #fff8e1;
+  color: #7a5800;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border-left: 4px solid #f4b400;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .safety-card {
+    background: #242424;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  .safety-card h2 {
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .safety-card ul {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .safety-page-intro {
+    color: #999;
+  }
+
+  .safety-disclaimer {
+    background: #3a3000;
+    color: #f4d45a;
+    border-color: #b39b34;
+  }
+}
+
 /* ── Reviews card ── */
 .reviews-card {
   background: #fff;
