@@ -1,5 +1,16 @@
 const BASE_URL = import.meta.env.VITE_API_URL ?? "";
 
+export const getRole = () => {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.role ?? null;
+  } catch {
+    return null;
+  }
+};
+
 const authHeaders = () => ({
   "Content-Type": "application/json",
   Authorization: `Bearer ${localStorage.getItem("token")}`,

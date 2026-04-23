@@ -131,7 +131,7 @@ const deleteReview = async (req, res) => {
       return res.status(404).json({ message: "Review not found" });
     }
 
-    if (review.userId.toString() !== req.user.id) {
+    if (review.userId.toString() !== req.user.id && req.user.role !== "admin") {
       return res.status(403).json({ message: "Not authorized to delete this review" });
     }
 

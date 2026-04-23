@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { api } from "../../service/api";
+import { api, getRole } from "../../service/api";
 
 interface Review {
   _id: string;
@@ -50,6 +50,7 @@ export default function RecipeDetail() {
   const [submitError, setSubmitError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const isAdmin = getRole() === "admin";
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -252,7 +253,7 @@ export default function RecipeDetail() {
                     </span>
                     <StarRating value={review.rating} />
                   </div>
-                  {review.userId === currentUserId && (
+                  {(review.userId === currentUserId || isAdmin) && (
                     <button
                       className="review-delete-btn"
                       onClick={() => handleDeleteReview(review._id)}

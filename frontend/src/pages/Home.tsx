@@ -1,17 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../service/api";
-
-const getRole = () => {
-  const token = localStorage.getItem("token");
-  if (!token) return null;
-  try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    return payload.role ?? null;
-  } catch {
-    return null;
-  }
-};
+import { api, getRole } from "../../service/api";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
