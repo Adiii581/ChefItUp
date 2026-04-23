@@ -8,6 +8,8 @@ export default function Home() {
   const [recipes, setRecipes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [savedRecipeIds, setSavedRecipeIds] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const navigate = useNavigate();
 
@@ -27,10 +29,14 @@ export default function Home() {
           params.append("appliance", appliance);
         }
 
+        params.append("page", String(page));
+        params.append("limit", "12");
+
         const res = await fetch(`${import.meta.env.VITE_API_URL ?? ""}/api/recipes?${params.toString()}`);
         const data = await res.json();
 
-        setRecipes(data);
+        setRecipes(data.recipes ?? []);
+        setTotalPages(data.totalPages ?? 1);
       } catch (err) {
         console.error("Failed to fetch recipes:", err);
       } finally {
@@ -39,6 +45,11 @@ export default function Home() {
     };
 
     fetchRecipes();
+  }, [searchQuery, appliance, page]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setPage(1);
   }, [searchQuery, appliance]);
 
   useEffect(() => {
@@ -171,6 +182,26 @@ export default function Home() {
           </div>
         ) : (
           <p className="empty-state">No recipes found for those filters.</p>
+        )}
+
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button
+              className="secondary-btn"
+              onClick={() => setPage((p) => p - 1)}
+              disabled={page === 1}
+            >
+              ← Prev
+            </button>
+            <span className="pagination-info">Page {page} of {totalPages}</span>
+            <button
+              className="secondary-btn"
+              onClick={() => setPage((p) => p + 1)}
+              disabled={page === totalPages}
+            >
+              Next →
+            </button>
+          </div>
         )}
       </main>
     </div>

@@ -38,7 +38,9 @@ const serializeRecipe = (recipe) => {
 */
 const getRecipes = async (req, res) => {
   try {
-    const { title, appliance, ingredients, tags } = req.query;
+    const { title, appliance, ingredients, tags, page, limit } = req.query;
+    const pageNum = Math.max(1, parseInt(page) || 1);
+    const pageSize = Math.min(50, Math.max(1, parseInt(limit) || 12));
 
     const ingredientList = ingredients
       ? ingredients
@@ -145,9 +147,20 @@ const getRecipes = async (req, res) => {
       });
     }
 
+    const countPipeline = [...pipeline, { $count: "total" }];
+    const [countResult] = await Recipe.aggregate(countPipeline);
+    const total = countResult?.total ?? 0;
+
+    pipeline.push({ $skip: (pageNum - 1) * pageSize }, { $limit: pageSize });
+
     const recipes = await Recipe.aggregate(pipeline);
 
-    res.status(200).json(recipes.map(serializeRecipe));
+    res.status(200).json({
+      recipes: recipes.map(serializeRecipe),
+      total,
+      page: pageNum,
+      totalPages: Math.ceil(total / pageSize),
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
