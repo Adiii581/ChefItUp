@@ -335,7 +335,7 @@ const deleteRecipe = async (req, res) => {
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
-    
+
     res.status(200).json({ message: "Recipe deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -61,4 +61,10 @@ export const api = {
       method: "DELETE",
       headers: authHeaders(),
     }).then((res) => res.json()),
+
+  deleteRecipe: (recipeId: string) =>
+    fetch(`${BASE_URL}/api/recipes/${recipeId}`, {
+      method: "DELETE",
+      headers: authHeaders(),
+    }).then((res) => res.json()),
 };
