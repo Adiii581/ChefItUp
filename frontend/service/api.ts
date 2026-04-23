@@ -45,4 +45,20 @@ export const api = {
       headers: authHeaders(),
       body: JSON.stringify({ recipeId }),
     }).then((res) => res.json()),
+
+  getReviews: (recipeId: string) =>
+    fetch(`${BASE_URL}/api/recipes/${recipeId}/reviews`).then((res) => res.json()),
+
+  submitReview: (recipeId: string, rating: number, comment: string) =>
+    fetch(`${BASE_URL}/api/recipes/${recipeId}/reviews`, {
+      method: "POST",
+      headers: authHeaders(),
+      body: JSON.stringify({ rating, comment }),
+    }).then((res) => res.json()),
+
+  deleteReview: (recipeId: string, reviewId: string) =>
+    fetch(`${BASE_URL}/api/recipes/${recipeId}/reviews/${reviewId}`, {
+      method: "DELETE",
+      headers: authHeaders(),
+    }).then((res) => res.json()),
 };
