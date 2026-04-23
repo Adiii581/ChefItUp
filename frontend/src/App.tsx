@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import RecipeDetail from "./pages/RecipeDetail";
+import Safety from "./pages/Safety";
 import "./App.css";
 
 const Navbar = ({
@@ -19,6 +20,8 @@ const Navbar = ({
       ChefItUp 👨‍🍳
     </Link>
     <div className="navbar-links">
+      <Link to="/">Home</Link>
+      <Link to="/safety">Safety</Link>
       {isLoggedIn ? (
         <>
           <Link to="/profile">Profile</Link>
@@ -68,6 +71,7 @@ function App() {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
+          <Route path="/safety" element={<Safety />} />
         </Routes>
       </div>
     </div>

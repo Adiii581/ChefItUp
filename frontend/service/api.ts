@@ -1,5 +1,16 @@
 const BASE_URL = import.meta.env.VITE_API_URL ?? "";
 
+export const getRole = () => {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.role ?? null;
+  } catch {
+    return null;
+  }
+};
+
 const authHeaders = () => ({
   "Content-Type": "application/json",
   Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,5 +55,27 @@ export const api = {
       method: "DELETE",
       headers: authHeaders(),
       body: JSON.stringify({ recipeId }),
+    }).then((res) => res.json()),
+
+  getReviews: (recipeId: string) =>
+    fetch(`${BASE_URL}/api/recipes/${recipeId}/reviews`).then((res) => res.json()),
+
+  submitReview: (recipeId: string, rating: number, comment: string) =>
+    fetch(`${BASE_URL}/api/recipes/${recipeId}/reviews`, {
+      method: "POST",
+      headers: authHeaders(),
+      body: JSON.stringify({ rating, comment }),
+    }).then((res) => res.json()),
+
+  deleteReview: (recipeId: string, reviewId: string) =>
+    fetch(`${BASE_URL}/api/recipes/${recipeId}/reviews/${reviewId}`, {
+      method: "DELETE",
+      headers: authHeaders(),
+    }).then((res) => res.json()),
+
+  deleteRecipe: (recipeId: string) =>
+    fetch(`${BASE_URL}/api/recipes/${recipeId}`, {
+      method: "DELETE",
+      headers: authHeaders(),
     }).then((res) => res.json()),
 };
