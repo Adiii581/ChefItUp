@@ -63,14 +63,23 @@ export default function Home() {
       return;
     }
 
-    const data = await api.saveRecipe(recipeId);
+    const isSaved = savedRecipeIds.includes(recipeId);
 
-    if (data.message === "Recipe saved successfully") {
-      setSavedRecipeIds((currentIds) => [...currentIds, recipeId]);
-      return;
+    if (isSaved) {
+      const data = await api.unsaveRecipe(recipeId);
+      if (data.message === "Recipe removed successfully") {
+        setSavedRecipeIds((currentIds) => currentIds.filter((id) => id !== recipeId));
+      } else {
+        alert(data.message || "Unable to unsave recipe");
+      }
+    } else {
+      const data = await api.saveRecipe(recipeId);
+      if (data.message === "Recipe saved successfully") {
+        setSavedRecipeIds((currentIds) => [...currentIds, recipeId]);
+      } else {
+        alert(data.message || "Unable to save recipe");
+      }
     }
-
-    alert(data.message || "Unable to save recipe");
   };
 
   return (
@@ -152,7 +161,6 @@ export default function Home() {
                 <button
                   className={savedRecipeIds.includes(recipe.id) ? "secondary-btn mt-4" : "primary-btn mt-4"}
                   onClick={(e) => handleSaveClick(e, recipe.id)}
-                  disabled={savedRecipeIds.includes(recipe.id)}
                 >
                   {savedRecipeIds.includes(recipe.id) ? "Saved" : "Save"}
                 </button>
