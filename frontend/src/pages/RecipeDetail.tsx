@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { api } from "../../service/api";
 
 export default function RecipeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [recipe, setRecipe] = useState<any>(null);
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -21,6 +23,40 @@ export default function RecipeDetail() {
     fetchRecipe();
   }, [id]);
 
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      setIsSaved(false);
+      return;
+    }
+
+    api.getSavedRecipes().then((data) => {
+      if (Array.isArray(data.savedRecipes)) {
+        setIsSaved(data.savedRecipes.some((savedRecipe: any) => savedRecipe.id === id));
+      }
+    });
+  }, [id]);
+
+  const handleSaveClick = async () => {
+    if (!recipe?.id) {
+      return;
+    }
+
+    if (!localStorage.getItem("token")) {
+      alert("Login required to save recipes");
+      navigate("/login");
+      return;
+    }
+
+    const data = await api.saveRecipe(recipe.id);
+
+    if (data.message === "Recipe saved successfully") {
+      setIsSaved(true);
+      return;
+    }
+
+    alert(data.message || "Unable to save recipe");
+  };
+
   return (
     <div className="recipe-detail">
       <button className="back-btn" onClick={() => navigate(-1)}>
@@ -35,6 +71,14 @@ export default function RecipeDetail() {
         <h2 style={{ marginBottom: "1rem" }}>
           {recipe?.title || `Recipe #${id}`}
         </h2>
+
+        <button
+          className={isSaved ? "secondary-btn" : "primary-btn"}
+          onClick={handleSaveClick}
+          disabled={isSaved}
+        >
+          {isSaved ? "Saved" : "Save Recipe"}
+        </button>
 
         {/* Ingredients */}
         <h3>Ingredients</h3>

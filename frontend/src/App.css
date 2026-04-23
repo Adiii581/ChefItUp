@@ -208,6 +208,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
+  margin-top: auto;
 }
 
 .secondary-btn:hover {

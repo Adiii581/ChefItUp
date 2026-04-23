@@ -23,8 +23,11 @@ const backendDir = path.resolve(currentDir, "..");
 dotenv.config();
 
 const SPOONACULAR_BASE_URL = "https://api.spoonacular.com";
-const TARGET_RECIPE_COUNT = 10;
-const CANDIDATE_POOL_SIZE = 40;
+const TARGET_RECIPE_COUNT = 100;
+const SEARCH_PAGE_LIMIT = 3;
+const REQUEST_DELAY_MS = 250;
+const FETCH_RETRY_LIMIT = 3;
+const FETCH_RETRY_DELAY_MS = 1000;
 const INSPECTION_OUTPUT_DIR = path.join(backendDir, "load-recipes", "output");
 const INSPECTION_OUTPUT_FILE = path.join(
   INSPECTION_OUTPUT_DIR,
@@ -32,11 +35,12 @@ const INSPECTION_OUTPUT_FILE = path.join(
 );
 const shouldLoadToDatabase = process.argv.includes("--load");
 
-const buildSearchUrl = ({ query, type, maxReadyTime, limit = 10 }) => {
+const buildSearchUrl = ({ query, type, maxReadyTime, limit = 10, offset = 0 }) => {
   const params = new URLSearchParams({
     apiKey: process.env.SPOONACULAR_API_KEY ?? "",
     query,
     number: String(limit),
+    offset: String(offset),
     addRecipeInformation: "false",
     fillIngredients: "false",
     instructionsRequired: "true",
@@ -64,30 +68,37 @@ const buildBulkInformationUrl = (ids) => {
   return `${SPOONACULAR_BASE_URL}/recipes/informationBulk?${params.toString()}`;
 };
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const fetchJson = async (url) => {
-  const response = await fetch(url);
+  for (let attempt = 1; attempt <= FETCH_RETRY_LIMIT; attempt += 1) {
+    try {
+      const response = await fetch(url);
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Spoonacular request failed (${response.status}): ${errorText}`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Spoonacular request failed (${response.status}): ${errorText}`);
+      }
+
+      await sleep(REQUEST_DELAY_MS);
+      return response.json();
+    } catch (error) {
+      const errorCode = error?.cause?.code ?? error?.code;
+      const isRetryableNetworkError = ["ECONNRESET", "ETIMEDOUT", "UND_ERR_CONNECT_TIMEOUT"].includes(
+        errorCode
+      );
+
+      if (!isRetryableNetworkError || attempt === FETCH_RETRY_LIMIT) {
+        throw error;
+      }
+
+      console.warn(
+        `Spoonacular request retry ${attempt}/${FETCH_RETRY_LIMIT} after ${errorCode}.`
+      );
+      await sleep(FETCH_RETRY_DELAY_MS * attempt);
+    }
   }
-
-  return response.json();
 };
-
-const stripHtml = (value = "") => value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-
-const APPLIANCE_TAG_RULES = [
-  { equipment: ["microwave"], tag: "microwave" },
-  { equipment: ["stove", "frying pan", "sauce pan", "pot", "wok", "griddle"], tag: "stovetop" },
-  { equipment: ["oven", "broiler", "roasting pan", "baking pan", "baking sheet", "casserole dish"], tag: "oven" },
-  { equipment: ["grill", "grill pan"], tag: "grill" },
-  { equipment: ["airfryer"], tag: "air_fryer" },
-  { equipment: ["instant pot", "pressure cooker"], tag: "pressure_cooker" },
-  { equipment: ["slow cooker"], tag: "slow_cooker" },
-  { equipment: ["rice cooker"], tag: "rice_cooker" },
-  { equipment: ["blender", "immersion blender", "food processor"], tag: "blender_or_processor" },
-];
 
 const normalizeIngredient = (ingredient) => ({
   id: ingredient.id,
@@ -294,18 +305,25 @@ const fetchCandidateIds = async () => {
   const uniqueIds = new Set();
 
   for (const search of dormFriendlySearches) {
-    const payload = await fetchJson(buildSearchUrl(search));
-    const ids = Array.isArray(payload.results) ? payload.results.map((result) => result.id) : [];
+    for (let page = 0; page < SEARCH_PAGE_LIMIT; page += 1) {
+      const offset = page * (search.limit ?? 10);
+      const payload = await fetchJson(buildSearchUrl({ ...search, offset }));
+      const ids = Array.isArray(payload.results) ? payload.results.map((result) => result.id) : [];
 
-    for (const id of ids) {
-      if (uniqueIds.size >= CANDIDATE_POOL_SIZE) {
-        break;
+      for (const id of ids) {
+        if (uniqueIds.size >= TARGET_RECIPE_COUNT) {
+          break;
+        }
+
+        uniqueIds.add(id);
       }
 
-      uniqueIds.add(id);
+      if (uniqueIds.size >= TARGET_RECIPE_COUNT || ids.length < (search.limit ?? 10)) {
+        break;
+      }
     }
 
-    if (uniqueIds.size >= CANDIDATE_POOL_SIZE) {
+    if (uniqueIds.size >= TARGET_RECIPE_COUNT) {
       break;
     }
   }
@@ -377,7 +395,12 @@ const loadRecipes = async () => {
 
 loadRecipes()
   .catch((error) => {
-    console.error("Recipe load failed:", error.message);
+    console.error("Recipe load failed:", error);
+
+    if (error.cause) {
+      console.error("Cause:", error.cause);
+    }
+
     process.exitCode = 1;
   })
   .finally(async () => {
